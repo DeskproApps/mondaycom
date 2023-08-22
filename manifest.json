@@ -1,26 +1,48 @@
 {
-  "name": "@deskpro-apps/my-app",
-  "title": "My App",
-  "description": "My Deskpro app",
+  "name": "@deskpro-apps/mondaycom",
+  "title": "monday.com",
+  "description": "Streamline your project management, collaboration, and organization with Monday.com. ",
   "version": "0.0.12",
   "scope": "agent",
   "isSingleInstall": false,
   "hasDevMode": true,
-  "targets": [{ "target": "ticket_sidebar", "entrypoint": "index.html" }],
+  "targets": [
+    {
+      "target": "ticket_sidebar",
+      "entrypoint": "index.html"
+    }
+  ],
   "settings": {
-    "example": {
-      "title": "Example Setting",
-      "description": "Example backend only setting",
+    "access_token": {
+      "title": "Access token",
+      "description": "monday.com Access token",
       "type": "string",
-      "isRequired": false,
+      "isRequired": true,
       "isBackendOnly": true
+    },
+    "instance_url": {
+      "title": "monday.com Instance URL",
+      "description": "E.g. https://deskpro.monday.com",
+      "validationPattern": "^https?:\\/\\/.+\\.+monday.com$",
+      "type": "string",
+      "isRequired": true,
+      "isBackendOnly": false
+    }
+  },
+  "entityAssociations": {
+    "linkedItems": {
+      "entity": "ticket",
+      "type": "external_id",
+      "title": "Linked monday.com Items"
     }
   },
   "proxy": {
     "whitelist": [
       {
-        "url": "https://jsonplaceholder.typicode.com/.*",
-        "methods": ["GET"],
+        "url": "https://api.monday.com/v2",
+        "methods": [
+          "POST"
+        ],
         "timeout": 20
       }
     ]

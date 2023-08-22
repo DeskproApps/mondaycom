@@ -1,0 +1,134 @@
+{
+  "titleKeyName": "name",
+  "idKey": "id",
+  "externalUrl": "boards/__board_id__/pulses/__id__",
+  "create": [
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "workspace",
+      "label": "Workspace",
+      "type": "dropdown"
+    },
+    {
+      "name": "board",
+      "label": "Board",
+      "type": "dropdown",
+      "required": true
+    },
+    {
+      "name": "group",
+      "label": "Group",
+      "type": "dropdown",
+      "required": true
+    },
+    {
+      "name": "description",
+      "label": "Description",
+      "type": "text"
+    },
+    {
+      "name": "assignee",
+      "label": "Assignee",
+      "type": "dropdown"
+    },
+    {
+      "name": "due_date",
+      "label": "Due Date",
+      "type": "date"
+    }
+  ],
+  "view": [
+    [
+      {
+        "name": "workspace",
+        "label": "Workspace",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "board",
+        "label": "Board",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "group.title",
+        "label": "Group",
+        "type": "key"
+      }
+    ],
+    [
+      {
+        "name": "created_at",
+        "label": "Created",
+        "type": "date"
+      }
+    ],
+    [
+      {
+        "name": "state",
+        "label": "State",
+        "type": "label"
+      }
+    ],
+    [
+      {
+        "name": "linked_tickets",
+        "label": "Linked Tickets",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "column_values",
+        "label": "",
+        "type": "column_values"
+      }
+    ]
+  ],
+  "link": [
+    [
+      {
+        "name": "workspace",
+        "label": "Workspace",
+        "type": "text"
+      },
+      {
+        "name": "board",
+        "label": "Board",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "group.title",
+        "label": "Group",
+        "type": "key"
+      },
+      {
+        "name": "created_at",
+        "label": "Created",
+        "type": "date"
+      }
+    ],
+    [
+      {
+        "name": "state",
+        "label": "State",
+        "type": "label"
+      },
+      {
+        "name": "linked_tickets",
+        "label": "Linked Tickets",
+        "type": "text"
+      }
+    ]
+  ]
+}
