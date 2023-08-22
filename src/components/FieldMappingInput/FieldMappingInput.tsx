@@ -11,6 +11,7 @@ import { DropdownData, FieldMappingInputs } from "../../types/types";
 import { DateField } from "../DateField/DateField";
 import { DropdownSelect } from "../DropdownSelect/DropdownSelect";
 import { InputWithTitleRegister } from "../InputWithTitle/InputWithTitleRegister";
+import { Stack } from "@deskpro/deskpro-ui";
 
 type Props = {
   errors: Partial<FieldErrorsImpl<any>>;
@@ -36,66 +37,70 @@ export const FieldMappingInput = forwardRef(
     onDropdownChange,
     ...attributes
   }: Props) => {
-    return fields.map((field) => {
-      if (field.label === "Type") return false;
+    return (
+      <Stack vertical style={{ width: "100%" }}>
+        {fields.map((field) => {
+          if (field.label === "Type") return <div />;
 
-      switch (field.type) {
-        case "text":
-        case "numeric":
-          return (
-            <InputWithTitleRegister
-              register={register(field.name, {
-                setValueAs: (value) => {
-                  if (value === "") return undefined;
+          switch (field.type) {
+            case "text":
+            case "numeric":
+              return (
+                <InputWithTitleRegister
+                  register={register(field.name, {
+                    setValueAs: (value) => {
+                      if (value === "") return undefined;
 
-                  if (field.type === "numeric") return Number(value);
+                      if (field.type === "numeric") return Number(value);
 
-                  return value;
-                },
-              })}
-              title={field.label}
-              error={!!errors[field.name]}
-              type={field.type === "numeric" ? "number" : "text"}
-              required={field.required}
-              data-testid={`input-${field.name}`}
-              {...attributes}
-            ></InputWithTitleRegister>
-          );
-        case "users":
-        case "color":
-        case "dropdown": {
-          if (!dropdownData) return null;
+                      return value;
+                    },
+                  })}
+                  title={field.label}
+                  error={!!errors[field.name]}
+                  type={field.type === "numeric" ? "number" : "text"}
+                  required={field.required}
+                  data-testid={`input-${field.name}`}
+                  {...attributes}
+                ></InputWithTitleRegister>
+              );
+            case "users":
+            case "color":
+            case "dropdown": {
+              if (!dropdownData) return <div />;
 
-          return (
-            <DropdownSelect
-              title={field.label}
-              error={!!errors[field.name]}
-              required={field.required}
-              data={dropdownData[field.name]}
-              onChange={(e) => setValue(field.name, e)}
-              value={watch(field.name)}
-              multiple={field.multiple}
-            />
-          );
-        }
-        case "date":
-          return (
-            <DateField
-              style={
-                !!errors?.[field.name] && {
-                  borderBottomColor: "red",
-                }
-              }
-              value={watch(field.name)}
-              label={field.label}
-              error={!!errors[field.name]}
-              onChange={(e: [Date]) =>
-                setValue(field.name, e[0].toISOString().split("T")[0])
-              }
-            />
-          );
-      }
-      return null;
-    });
+              return (
+                <DropdownSelect
+                  title={field.label}
+                  error={!!errors[field.name]}
+                  required={field.required}
+                  data={dropdownData[field.name]}
+                  onChange={(e) => setValue(field.name, e)}
+                  value={watch(field.name)}
+                  multiple={field.multiple}
+                />
+              );
+            }
+            case "date":
+              return (
+                <DateField
+                  style={
+                    !!errors?.[field.name] && {
+                      borderBottomColor: "red",
+                    }
+                  }
+                  value={watch(field.name)}
+                  label={field.label}
+                  error={!!errors[field.name]}
+                  onChange={(e: [Date]) =>
+                    setValue(field.name, e[0].toISOString().split("T")[0])
+                  }
+                />
+              );
+          }
+          return <div />;
+        })}
+      </Stack>
+    );
   }
 );
