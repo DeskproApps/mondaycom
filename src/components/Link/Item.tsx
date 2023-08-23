@@ -17,7 +17,6 @@ import { HorizontalDivider } from "../HorizontalDivider/HorizontalDivider";
 import { LoadingSpinnerCenter } from "../LoadingSpinnerCenter/LoadingSpinnerCenter";
 
 export const LinkItem = () => {
-  // const [inputText, setInputText] = useState<string>("");
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [linkedItems, setLinkedItems] = useState<string[]>([]);
   const [itemLinketCount, setItemLinkedCount] = useState<
@@ -26,7 +25,6 @@ export const LinkItem = () => {
   const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
   const [items, setItems] = useState<Record<string, IItem[]>>({});
-  // const { debouncedValue: debouncedText } = useDebounce(inputText, 300);
   const { getLinkedItems, linkItems } = useLinkItems();
   const { getMultipleItemsTicketCount } = useTicketCount();
   const navigate = useNavigate();
@@ -119,13 +117,6 @@ export const LinkItem = () => {
         <LoadingSpinnerCenter />
       ) : (
         <Stack vertical gap={6} style={{ width: "100%" }}>
-          {/* <Input
-            onChange={(e) => setInputText(e.target.value)}
-            value={inputText}
-            placeholder="Enter Item Key"
-            type="text"
-            leftIcon={faMagnifyingGlass as AnyIcon}
-          /> */}
           <DropdownSelect
             title="Board"
             data={boards?.map((board) => ({
@@ -134,6 +125,7 @@ export const LinkItem = () => {
             }))}
             onChange={(e) => {
               setSelectedBoard(e);
+              setLinkedItems([]);
               setPage(1);
             }}
             error={false}

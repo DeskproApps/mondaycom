@@ -1,6 +1,3 @@
-go to https://deskpro-group.monday.com/apps/manage > my access token > copy
-eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjI3MzA2NzM3OCwiYWFpIjoxMSwidWlkIjo0NjY3MDM1NSwiaWFkIjoiMjAyMy0wOC0wNFQwOToyMzoyMS40NDdaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MTgxMzEzODYsInJnbiI6ImV1YzEifQ.Dz1OGR8kkX2xVnFJ1lu0GUs4X4SHsY6Iu3Wmyv2ouAM
-
 # monday.com App Setup
 
 To integrate your monday.com account with the Deskpro app, follow these simple steps:
