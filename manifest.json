@@ -1,7 +1,7 @@
 {
   "name": "@deskpro-apps/mondaycom",
   "title": "monday.com",
-  "description": "Streamline your project management, collaboration, and organization with Monday.com. ",
+  "description": "Streamline your project management, collaboration, and organization with Monday.com.",
   "version": "0.0.0",
   "scope": "agent",
   "isSingleInstall": false,
