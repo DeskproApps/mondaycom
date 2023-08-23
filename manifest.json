@@ -2,7 +2,7 @@
   "name": "@deskpro-apps/my-app",
   "title": "My App",
   "description": "My Deskpro app",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "scope": "agent",
   "isSingleInstall": false,
   "hasDevMode": true,
