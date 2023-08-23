@@ -67,7 +67,12 @@ export const DropdownSelect = ({
       {/* eslint-disable-next-line @typescript-eslint/no-explicit-any*/}
       <DropdownComponent<any, HTMLDivElement>
         placement="bottom-start"
-        options={dataOptions}
+        options={dataOptions.map((e) => ({
+          ...e,
+          selected: ["number", "string"].includes(typeof value)
+            ? e.value === value
+            : value?.includes(e.value),
+        }))}
         fetchMoreText={"Fetch more"}
         autoscrollText={"Autoscroll"}
         selectedIcon={faCheck as AnyIcon}

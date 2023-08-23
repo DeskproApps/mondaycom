@@ -47,6 +47,7 @@ type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   childTitleAccessor?: (field: any) => string;
   title?: string;
+  hasCheckbox?: boolean;
 };
 
 export const FieldMapping = ({
@@ -59,6 +60,7 @@ export const FieldMapping = ({
   externalChildUrl,
   childTitleAccessor,
   title,
+  hasCheckbox,
 }: Props) => {
   const { theme } = useDeskproAppTheme();
   const { context } = useDeskproLatestAppContext();
@@ -235,7 +237,7 @@ export const FieldMapping = ({
                 );
             }
           })}
-          {fields.length > 1 && <HorizontalDivider full />}
+          {(fields.length > 1 || hasCheckbox) && <HorizontalDivider full />}
         </Stack>
       ))}
     </Stack>

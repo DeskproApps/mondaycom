@@ -181,6 +181,7 @@ export const LinkItem = () => {
                             linked_tickets: itemLinketCount[item.id] || 0,
                           },
                         ]}
+                        hasCheckbox={true}
                         metadata={ItemJson.link}
                         idKey={ItemJson.idKey}
                         internalChildUrl={`/view/item/`}
