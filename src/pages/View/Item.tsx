@@ -86,7 +86,7 @@ export const ViewItem = () => {
         fields={[
           {
             ...item,
-            linked_tickets: itemLinketCount,
+            linked_tickets: itemLinketCount || 0,
           },
         ]}
         metadata={ItemJson.view}

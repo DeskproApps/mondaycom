@@ -11,6 +11,17 @@ export const useMapFieldValues = () => {
     field: IItem
   ) => {
     return metadataFields.map((metadataField) => {
+      if (
+        (field[metadataField.name as keyof IItem] == null ||
+          field[metadataField.name as keyof IItem] === "") &&
+        metadataField.type !== "key"
+      ) {
+        return {
+          key: metadataField.label,
+          value: "-",
+        };
+      }
+
       let value;
       switch (metadataField.type) {
         case "date":

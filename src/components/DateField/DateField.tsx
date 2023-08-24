@@ -37,14 +37,7 @@ export const DateField: FC<MappedFieldProps> = forwardRef(
 
     return (
       <DateTimePicker
-        options={{
-          altInput: true,
-          altFormat: "j F Y H:i",
-          position: "left",
-          dateFormat: "d/m/Y",
-          timeFormat: "H:i",
-        }}
-        value={value}
+        value={new Date(value)}
         onChange={onChange}
         {...props}
         ref={ref}

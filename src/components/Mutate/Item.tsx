@@ -207,12 +207,13 @@ export const MutateItem = ({ id }: { id?: string }) => {
           submitMutation.data.data?.create_item?.id as string,
         ]));
 
-      navigate("/redirect");
+      navigate(!id ? "/redirect" : `/view/item/${id}`);
     })();
   }, [
     submitMutation.isSuccess,
     navigate,
     linkItems,
+    id,
     submitMutation.data,
     isEditMode,
   ]);
@@ -367,7 +368,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
             boardsQuery.isSuccess &&
             selectedWorkspace !== undefined && (
               <DropdownSelect
-                title="Boards"
+                title="Board"
                 error={!!errors.boards}
                 required={true}
                 data={boards}
@@ -390,7 +391,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
             <>
               {!id && (
                 <DropdownSelect
-                  title="Groups"
+                  title="Group"
                   error={!!errors.groups}
                   required={false}
                   data={groups}
@@ -407,14 +408,23 @@ export const MutateItem = ({ id }: { id?: string }) => {
                 watch={watch}
                 dropdownData={dropdownData}
               />
-              <Button
-                type="submit"
-                data-testid="button-submit"
-                text={id ? "Edit" : "Create"}
-                loading={!submitMutation.isIdle}
-                disabled={!submitMutation.isIdle}
-                intent="primary"
-              ></Button>
+              <Stack style={{ width: "100%", justifyContent: "space-between" }}>
+                <Button
+                  type="submit"
+                  data-testid="button-submit"
+                  text={id ? "Save" : "Create"}
+                  loading={!submitMutation.isIdle}
+                  disabled={!submitMutation.isIdle}
+                  intent="primary"
+                ></Button>
+                {!!id && (
+                  <Button
+                    text="Cancel"
+                    onClick={() => navigate(`/view/item/${id}`)}
+                    intent="secondary"
+                  ></Button>
+                )}
+              </Stack>
             </>
           )
         )}
