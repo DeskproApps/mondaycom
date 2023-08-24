@@ -1,7 +1,7 @@
-import styled from "styled-components";
 import { Stack } from "@deskpro/deskpro-ui";
+import styled from "styled-components";
 
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement } from "react";
 
 const Divider = styled.div`
   display: inline-block;
@@ -11,15 +11,11 @@ const Divider = styled.div`
 `;
 
 export const PropertyRow = ({ children }: { children: ReactElement[] }) => {
-  const [maxHeight, setMaxHeight] = useState(0);
-
-  useEffect(() => {
-    const propertyRows = document.querySelectorAll(".property-row");
-
-    const heights = Array.from(propertyRows).map((row) => row.clientHeight);
-
-    setMaxHeight(Math.max(...heights));
-  }, []);
+  const maxHeight = Math.max(
+    ...Array.from(document.querySelectorAll(".property-row")).map(
+      (row) => row.clientHeight
+    )
+  );
 
   return (
     <Stack
