@@ -2,16 +2,11 @@
   "name": "@deskpro-apps/mondaycom",
   "title": "monday.com",
   "description": "Streamline your project management, collaboration, and organization with Monday.com.",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scope": "agent",
   "isSingleInstall": false,
   "hasDevMode": true,
-  "targets": [
-    {
-      "target": "ticket_sidebar",
-      "entrypoint": "index.html"
-    }
-  ],
+  "targets": [{ "target": "ticket_sidebar", "entrypoint": "index.html" }],
   "settings": {
     "access_token": {
       "title": "Access token",
@@ -38,13 +33,7 @@
   },
   "proxy": {
     "whitelist": [
-      {
-        "url": "https://api.monday.com/v2",
-        "methods": [
-          "POST"
-        ],
-        "timeout": 20
-      }
+      { "url": "https://api.monday.com/v2", "methods": ["POST"], "timeout": 20 }
     ]
   }
 }
