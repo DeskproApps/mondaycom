@@ -7,11 +7,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
 import { Main } from "./pages/Main";
-
 import "flatpickr/dist/themes/light.css";
 import "simplebar/dist/simplebar.min.css";
 import "tippy.js/dist/tippy.css";
-
 import { LoadingSpinner } from "@deskpro/app-sdk";
 import "@deskpro/deskpro-ui/dist/deskpro-custom-icons.css";
 import "@deskpro/deskpro-ui/dist/deskpro-ui.css";

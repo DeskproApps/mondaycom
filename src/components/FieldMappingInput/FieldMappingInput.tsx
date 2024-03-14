@@ -6,12 +6,11 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form/dist/types";
-
 import { DropdownData, FieldMappingInputs } from "../../types/types";
-import { DateField } from "../DateField/DateField";
 import { DropdownSelect } from "../DropdownSelect/DropdownSelect";
 import { InputWithTitleRegister } from "../InputWithTitle/InputWithTitleRegister";
 import { Stack } from "@deskpro/deskpro-ui";
+import { DateInput } from "@deskpro/app-sdk";
 
 type Props = {
   errors: Partial<FieldErrorsImpl<any>>;
@@ -83,7 +82,8 @@ export const FieldMappingInput = forwardRef(
             }
             case "date":
               return (
-                <DateField
+                <DateInput
+                  id={field.name}
                   style={
                     !!errors?.[field.name] && {
                       borderBottomColor: "red",
