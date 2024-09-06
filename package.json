@@ -57,7 +57,7 @@
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^29.3.1",
     "node-fetch": "^3.3.0",
-    "prettier": "2.8.7",
+    "prettier": "3.3.3",
     "react-resize-observer": "^1.1.1",
     "rimraf": "^3.0.2",
     "rollup-plugin-copy": "3.4.0",
