@@ -67,7 +67,6 @@ export const FieldMapping = ({
   const { context } = useDeskproLatestAppContext<unknown, Settings>();
   const { mapFieldValues } = useMapFieldValues();
 
-  console.log(context?.settings)
   return (
     <Stack vertical gap={5} style={{ width: "100%" }}>
       {title ||
