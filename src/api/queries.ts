@@ -130,7 +130,7 @@ query {
 
 export const getBoardsQuery = (selectedWorkspace?: string | number | null) => `
 query {
-  boards (${selectedWorkspace ? `workspace_ids: [${selectedWorkspace}]` : ""}) {
+  boards ${selectedWorkspace ? `(workspace_ids: [${selectedWorkspace}])` : ``} {
     id
     name
     workspace_id
@@ -197,14 +197,3 @@ query {
   }
 }
 `;
-`query {
-  boards () {
-    id
-    name
-    workspace_id
-    groups {
-        id
-        title
-      }
-    }
-  }`;
