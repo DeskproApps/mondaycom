@@ -113,7 +113,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
 
   const columnsQuery = useQueryWithClient(
     ["columns", selectedBoard as string],
-    (client) => getBoardColumns(client, selectedBoard),
+    (client) => getBoardColumns(client, selectedBoard.id ?? ""),
     {
       enabled: !!selectedBoard,
       onSuccess: (data) => {
