@@ -140,12 +140,12 @@ export const getItemsById = async (
           ?.name ?? "Main Workspace",
       workspace_id: item.workspace_id,
       board: {
-        id: item.id,
-        name: item.name
+        id: item.board.id,
+        name: item.board.name
       },
       group: item.group,
     })
-    
+
     )
     .flat();
 };
