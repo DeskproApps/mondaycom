@@ -1,18 +1,47 @@
+
 export const getBoardsItemsQuery = (page: number, boardId: string) => `
 query {
   boards (ids:${boardId}) {
     id
     workspace_id
     name
-    items (limit:10, page:${page}) {
+    items_page(limit:10){
+      cursor
+
+      items{
+    id
+        name
+        state
+        created_at
+        group{
+          id
+          title
+        }
+    board{
       id
       name
-      state
+    }
+    
+    column_values{
+      id
+      value
+      type
+      text
+    }
+    creator{
+      name
+      id
+    }
+    updates{
+      body
+      creator{
+      name
+      id
+    }
       created_at
-      group {
-        id
-        title
-      }
+    }
+  }
+
     }
   }
 }
@@ -39,42 +68,39 @@ query {
 
 export const getItemsByIdQuery = (ids: string[]) => `
 query {
-  boards {
-    id
-    workspace_id
-    name
-    groups {
-      title
-    }
     items (ids:[${ids}]) {
       id
-      name
-      state
-      created_at
-      creator {
         name
-        id
-      }
-      column_values {
-        id
-        title
-        value
-        type
-        text
-      }
-      group {
-        id
-        title
-      }
-      updates {
-        body
-        creator {
-          name
-        }
+        state
         created_at
-      }
+        group{
+          id
+          title
+        }
+    board{
+      id
+      name
     }
-  }
+    
+    column_values{
+      id
+      value
+      type
+      text
+    }
+    creator{
+      name
+      id
+    }
+    updates{
+      body
+      creator{
+      name
+      id
+    }
+      created_at
+    }
+    }
 }`;
 
 export const getItemsByPromptBoardIdQuery = (
