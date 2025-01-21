@@ -122,28 +122,30 @@ export const getItemsById = async (
   client: IDeskproClient,
   items: string[]
 ): Promise<IItem[]> => {
-  const itemsResponse: { data: { boards: IBoard[] } } = await installedRequest(
+  const itemsResponse: { data: { items: IItem[] } } = await installedRequest(
     client,
     getItemsByIdQuery(items)
   );
 
   const workspaces = await getWorkspacesByIds(
     client,
-    itemsResponse.data.boards.map((e) => e.workspace_id) as number[]
+    itemsResponse.data.items.map((e) => e.workspace_id) as number[]
   );
 
-  return itemsResponse.data.boards
-    .map((board) =>
-      board.items.map((item) => ({
-        ...item,
-        workspace:
-          workspaces.data.workspaces.find((e) => e.id === board.workspace_id)
-            ?.name ?? "Main Workspace",
-        workspace_id: board.workspace_id,
-        board: board.name,
-        board_id: board.id,
-        group: item.group,
-      }))
+  return itemsResponse.data.items
+    .map((item) => ({
+      ...item,
+      workspace:
+        workspaces.data.workspaces.find((e) => e.id === item.workspace_id)
+          ?.name ?? "Main Workspace",
+      workspace_id: item.workspace_id,
+      board: {
+        id: item.id,
+        name: item.name
+      },
+      group: item.group,
+    })
+    
     )
     .flat();
 };
@@ -171,7 +173,7 @@ export const getBoardsItems = async (
   client: IDeskproClient,
   page: number,
   boardId: string
-) => {
+): Promise<IItem[]> => {
   const itemsResponse: { data: { boards: IBoard[] } } = await installedRequest(
     client,
     getBoardsItemsQuery(page, boardId)
@@ -184,13 +186,12 @@ export const getBoardsItems = async (
 
   return itemsResponse.data.boards
     .map((board) =>
-      board.items.map((item) => ({
+      board.items_page.items.map((item) => ({
         ...item,
         workspace:
           workspaces.data.workspaces.find((e) => e.id === board.workspace_id)
             ?.name ?? "Main Workspace",
-        board: board.name,
-        board_id: board.id,
+        board: {id: board.id,name: board.name},
         group: item.group,
       }))
     )

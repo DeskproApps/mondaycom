@@ -191,7 +191,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
       name: item.name,
       id: item.id,
       workspace: item.workspace_id ?? null,
-      board: item.board_id,
+      board: {id: item.board.id, name: item.board.name},
       group: item.group.id,
       ...columnValues,
     });
