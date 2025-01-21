@@ -52,7 +52,7 @@
     ],
     [
       {
-        "name": "board.name",
+        "name": "board",
         "label": "Board",
         "type": "text"
       }
