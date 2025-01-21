@@ -101,6 +101,7 @@ export const Main = () => {
       <FieldMapping
         fields={items.map((e) => ({
           ...e,
+          board: e.board.name,
           linked_tickets: itemLinketCount[e.id],
         }))}
         metadata={ItemJson.link}
