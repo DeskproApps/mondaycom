@@ -116,9 +116,9 @@ query {
 }
 `;
 
-export const getBoardColumnsQuery = (board_id: number | string) => `
+export const getBoardColumnsQuery = (board_id?: number | string) => `
 query {
-  boards (ids: ${board_id}) {
+  boards ${board_id ? `(ids:${board_id})` : ""}{
     columns {
       id
       title

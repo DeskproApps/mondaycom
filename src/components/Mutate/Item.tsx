@@ -113,7 +113,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
 
   const columnsQuery = useQueryWithClient(
     ["columns", selectedBoard as string],
-    (client) => getBoardColumns(client, selectedBoard.id ?? ""),
+    (client) => getBoardColumns(client, selectedBoard.id),
     {
       enabled: !!selectedBoard,
       onSuccess: (data) => {
@@ -409,6 +409,8 @@ export const MutateItem = ({ id }: { id?: string }) => {
                 dropdownData={dropdownData}
               />
               <Stack style={{ width: "100%", justifyContent: "space-between" }}>
+                
+                {submitMutation.isIdle ? "idle" : "Not Idle"}
                 <Button
                   type="submit"
                   data-testid="button-submit"
