@@ -135,7 +135,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
   );
 
   useEffect(() => {
-    if (!id || !itemQuery.isSuccess) return;
+    if (!id || !itemQuery.isSuccess || !itemQuery.data || !itemQuery.data[0]) return;
 
     const item = itemQuery.data[0];
 
