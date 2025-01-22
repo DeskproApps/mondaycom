@@ -97,7 +97,7 @@ export const Main = () => {
 
   if (items.length === 0) return <Title title="No found" />;
   return (
-    <Stack vertical style={{ width: "100%", padding: "12px" }}>
+    <Stack vertical style={{ width: "100%"}}>
       <FieldMapping
         fields={items.map((e) => ({
           ...e,

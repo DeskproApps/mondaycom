@@ -4,4 +4,8 @@ html, body, #root {
   padding: 0px;
   margin: 0px;
 }
+body{
+  padding: 12px;
+  box-sizing: border-box;
+}
 
