@@ -14,7 +14,7 @@ import {
   getWorkspaceNamesByIdsQuery,
   getWorkspacesQuery,
 } from "./queries";
-import { BoardColumns, IBoard, IItem, IWorkspaces } from "./types";
+import { BoardColumns, IBoard, IItem, ItemBoard, IWorkspaces } from "./types";
 
 export const getUsers = async (
   client: IDeskproClient
@@ -67,7 +67,7 @@ export const getItemsByPromptBoardId = async (
 export const editItem = async (
   client: IDeskproClient,
   data: {
-    board_id: string;
+    board: ItemBoard;
     id: string;
     name: string;
     column_values: Record<string, string>;

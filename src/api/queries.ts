@@ -1,3 +1,4 @@
+import { ItemBoard } from "./types";
 
 export const getBoardsItemsQuery = (page: number, boardId: string) => `
 query {
@@ -176,14 +177,14 @@ query {
 }`;
 
 export const editItemQuery = (data: {
-  board_id: string;
+  board: ItemBoard;
   id: string;
   name: string;
   column_values: Record<string, string>;
 }) => `
 mutation {
   change_multiple_column_values(
-    board_id: ${data.board_id},
+    board_id: ${data.board.id},
     item_id: ${data.id},
     column_values: "${JSON.stringify({
       ...data.column_values,
