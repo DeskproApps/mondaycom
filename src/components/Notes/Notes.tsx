@@ -37,7 +37,7 @@ export const Notes = ({ notes, id }: Props) => {
           onClick={() => navigate(`/create/note/${id}`)}
         ></FontAwesomeIcon>
       </Stack>
-      {notes.map((note, i) => (
+      {(notes?? []).map((note, i) => (
         <Stack key={i} vertical gap={5} style={{ width: "100%" }}>
           <Stack style={{ alignItems: "flex-start", marginTop: "5px" }} gap={5}>
             <Stack
