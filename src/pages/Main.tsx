@@ -91,7 +91,7 @@ export const Main = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context]);
 
-  if (!itemsByIdQuery.isSuccess || !itemLinketCount) return <LoadingSpinner />;
+  if (!itemsByIdQuery.isSuccess || !itemLinketCount || !itemsByIdQuery.data) return <LoadingSpinner />;
 
   const items = itemsByIdQuery.data;
 

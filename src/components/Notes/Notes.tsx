@@ -24,7 +24,7 @@ export const Notes = ({ notes, id }: Props) => {
     <Stack vertical gap={10} style={{ width: "100%" }}>
       <HorizontalDivider full />
       <Stack gap={5}>
-        <H1>Updates ({notes.length})</H1>
+        <H1>Updates ({(notes?? []).length})</H1>
         <FontAwesomeIcon
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           icon={faPlus as any}
