@@ -246,7 +246,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
     newObj.column_values = z.record(z.any()).optional();
 
     setSchema(getItemSchema(inputs, newObj));
-  }, []);
+  }, [isEditMode]);
 
   const workspaces = useMemo(() => {
     if (!workspacesQuery.isSuccess) return [];
