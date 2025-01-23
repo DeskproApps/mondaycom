@@ -131,16 +131,16 @@ query {
 }`;
 
 export const createItemQuery = (data: {
-  board_id: string;
+  board: string;
   group_id?: string;
   name: string;
   column_values: Record<string, string>;
 }) => `
 mutation {
-  create_item (board_id:${data.board_id}, ${
+  create_item (board_id:${data.board}, ${
   data.group_id ? `group_id:"${data.group_id}",` : ""
 } item_name:"${data.name}", column_values: "${JSON.stringify(
-  data.column_values
+  data.column_values ?? []
 ).replaceAll(`"`, `\\"`)}") {
   id
 }

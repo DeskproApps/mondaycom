@@ -109,7 +109,7 @@ export const getBoardsByWorkspaceId = async (
 export const createItem = async (
   client: IDeskproClient,
   data: {
-    board_id: string;
+    board: string;
     id: string;
     name: string;
     column_values: Record<string, string>;
