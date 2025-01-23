@@ -47,7 +47,7 @@ export const getItemSchema = (
 
   const transformedSchema = schema.transform((obj) => {
     return {
-      board_id: obj.board,
+      board: obj.board,
       group_id: obj.group,
       name: obj.name,
       id: obj.id,
