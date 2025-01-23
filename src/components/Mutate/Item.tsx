@@ -235,7 +235,6 @@ export const MutateItem = ({ id }: { id?: string }) => {
 
       // Update the schema for the `board` field when in edit mode
       if (isEditMode && field.name === "board"){
-        console.log("[LOG] board in edit mode reached")
         newObj[field.name] = z.object({
   id: z.string(),
   name: z.string()
