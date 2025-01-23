@@ -91,16 +91,17 @@ export const Main = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context]);
 
-  if (!itemsByIdQuery.isSuccess || !itemLinketCount) return <LoadingSpinner />;
+  if (!itemsByIdQuery.isSuccess || !itemLinketCount || !itemsByIdQuery.data) return <LoadingSpinner />;
 
   const items = itemsByIdQuery.data;
 
   if (items.length === 0) return <Title title="No found" />;
   return (
-    <Stack vertical style={{ width: "100%" }}>
+    <Stack vertical style={{ width: "100%"}}>
       <FieldMapping
         fields={items.map((e) => ({
           ...e,
+          board: e.board.name,
           linked_tickets: itemLinketCount[e.id],
         }))}
         metadata={ItemJson.link}

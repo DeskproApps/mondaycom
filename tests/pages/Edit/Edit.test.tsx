@@ -16,18 +16,29 @@ jest.mock("../../../src/api/api", () => {
   return {
     getItemsById: () => [
       {
-        id: "123",
-        board_id: "123",
-        name: "asd",
-        column_values: [],
-        group_id: "123",
+        id: "123456",
+        name: "Fake Item",
+        state: "active",
+        created_at: "2025-01-16T17:10:26Z",
         group: {
-          id: "123",
+          id: "topics",
+          name: "Epic Group"
         },
+        board: {
+          id: "1234565789",
+          name: "DeskproBoard",
+        },
+        workspace: "Epic Workspace",
+        column_values: [],
+        creator: {
+          id: "789",
+          name: "John Doe"
+        },
+        updates: [],
       },
     ],
-    getUsers: () => ({ data: { userss: [{ id: "123", name: "Name" }] } }),
-    getBoardColumns: () => ({ data: { boards: [{ columns: [{}] }] } }),
+    getUsers: () => ({ data: { users: [{ id: "123", name: "John Doe" }] } }),
+    getBoardColumns: () => ({ data: { boards: [{ columns: [] }] } }),
     editItem: jest.fn(),
   };
 });
@@ -40,7 +51,7 @@ describe("Edit Page", () => {
     await waitFor(() => {
       fireEvent(getByTestId("button-submit"), new MouseEvent("click"));
 
-      expect(Api.editItem).toBeCalled();
+      expect(Api.editItem).toHaveBeenCalled();
     });
   });
 

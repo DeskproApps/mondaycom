@@ -66,8 +66,15 @@ export const useTicketCount = () => {
   };
 };
 
+type ContextData ={
+  ticket?: {
+    id: string,
+    subject: string
+  }
+}
+
 export const useLinkItems = () => {
-  const { context } = useDeskproLatestAppContext();
+  const { context } = useDeskproLatestAppContext<ContextData, unknown>();
   const { client } = useDeskproAppClient();
   const [isLinking, setIsLinking] = useState(false);
   const navigate = useNavigate();
@@ -75,7 +82,7 @@ export const useLinkItems = () => {
   const { incrementItemTicketCount, decrementItemTicketCount } =
     useTicketCount();
 
-  const ticket = context?.data.ticket;
+  const ticket = context?.data?.ticket;
 
   const linkItems = useCallback(
     async (itemsIds: string[]) => {
@@ -85,7 +92,7 @@ export const useLinkItems = () => {
 
       await Promise.all(
         (itemsIds || []).map((id) =>
-          client?.getEntityAssociation("linkedItems", ticket?.id).set(id)
+          client.getEntityAssociation("linkedItems", ticket.id).set(id)
         )
       );
 
@@ -102,7 +109,7 @@ export const useLinkItems = () => {
   const getLinkedItems = useCallback(async () => {
     if (!client || !ticket) return;
 
-    return await client.getEntityAssociation("linkedItems", ticket?.id).list();
+    return await client.getEntityAssociation("linkedItems", ticket.id).list();
   }, [client, ticket]);
 
   const unlinkItem = useCallback(
@@ -110,7 +117,7 @@ export const useLinkItems = () => {
       if (!client || !ticket) return;
 
       await client
-        .getEntityAssociation("linkedItems", ticket?.id)
+        .getEntityAssociation("linkedItems", ticket.id)
         .delete(itemId);
 
       await decrementItemTicketCount(itemId);

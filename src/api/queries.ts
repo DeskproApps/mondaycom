@@ -1,18 +1,48 @@
+import { ItemBoard } from "./types";
+
 export const getBoardsItemsQuery = (page: number, boardId: string) => `
 query {
   boards (ids:${boardId}) {
     id
     workspace_id
     name
-    items (limit:10, page:${page}) {
+    items_page(limit:10){
+      cursor
+
+      items{
+    id
+        name
+        state
+        created_at
+        group{
+          id
+          title
+        }
+    board{
       id
       name
-      state
+    }
+    
+    column_values{
+      id
+      value
+      type
+      text
+    }
+    creator{
+      name
+      id
+    }
+    updates{
+      body
+      creator{
+      name
+      id
+    }
       created_at
-      group {
-        id
-        title
-      }
+    }
+  }
+
     }
   }
 }
@@ -39,42 +69,39 @@ query {
 
 export const getItemsByIdQuery = (ids: string[]) => `
 query {
-  boards {
-    id
-    workspace_id
-    name
-    groups {
-      title
-    }
     items (ids:[${ids}]) {
       id
-      name
-      state
-      created_at
-      creator {
         name
-        id
-      }
-      column_values {
-        id
-        title
-        value
-        type
-        text
-      }
-      group {
-        id
-        title
-      }
-      updates {
-        body
-        creator {
-          name
-        }
+        state
         created_at
-      }
+        group{
+          id
+          title
+        }
+    board{
+      id
+      name
     }
-  }
+    
+    column_values{
+      id
+      value
+      type
+      text
+    }
+    creator{
+      name
+      id
+    }
+    updates{
+      body
+      creator{
+      name
+      id
+    }
+      created_at
+    }
+    }
 }`;
 
 export const getItemsByPromptBoardIdQuery = (
@@ -90,9 +117,9 @@ query {
 }
 `;
 
-export const getBoardColumnsQuery = (board_id: number | string) => `
+export const getBoardColumnsQuery = (board_id?: number | string) => `
 query {
-  boards (ids: ${board_id}) {
+  boards ${board_id ? `(ids:${board_id})` : ""}{
     columns {
       id
       title
@@ -104,16 +131,16 @@ query {
 }`;
 
 export const createItemQuery = (data: {
-  board_id: string;
+  board: string;
   group_id?: string;
   name: string;
   column_values: Record<string, string>;
 }) => `
 mutation {
-  create_item (board_id:${data.board_id}, ${
+  create_item (board_id:${data.board}, ${
   data.group_id ? `group_id:"${data.group_id}",` : ""
 } item_name:"${data.name}", column_values: "${JSON.stringify(
-  data.column_values
+  data.column_values ?? []
 ).replaceAll(`"`, `\\"`)}") {
   id
 }
@@ -130,7 +157,7 @@ query {
 
 export const getBoardsQuery = (selectedWorkspace?: string | number | null) => `
 query {
-  boards (${selectedWorkspace ? `workspace_ids: [${selectedWorkspace}]` : ""}) {
+  boards ${selectedWorkspace ? `(workspace_ids: [${selectedWorkspace}])` : ``} {
     id
     name
     workspace_id
@@ -150,14 +177,14 @@ query {
 }`;
 
 export const editItemQuery = (data: {
-  board_id: string;
+  board: ItemBoard;
   id: string;
   name: string;
   column_values: Record<string, string>;
 }) => `
 mutation {
   change_multiple_column_values(
-    board_id: ${data.board_id},
+    board_id: ${data.board.id},
     item_id: ${data.id},
     column_values: "${JSON.stringify({
       ...data.column_values,
@@ -197,14 +224,3 @@ query {
   }
 }
 `;
-`query {
-  boards () {
-    id
-    name
-    workspace_id
-    groups {
-        id
-        title
-      }
-    }
-  }`;

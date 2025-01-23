@@ -13,6 +13,7 @@ import { AppLogo } from "../AppLogo/AppLogo";
 import { HorizontalDivider } from "../HorizontalDivider/HorizontalDivider";
 import { H1, H2, H3, P11, P5, Stack } from "@deskpro/deskpro-ui";
 import { substitutePlaceholders } from "../../utils/utils";
+import { Settings } from "@/types/types";
 
 const SpaceBetweenFields = ({
   field: field,
@@ -63,7 +64,7 @@ export const FieldMapping = ({
   hasCheckbox,
 }: Props) => {
   const { theme } = useDeskproAppTheme();
-  const { context } = useDeskproLatestAppContext();
+  const { context } = useDeskproLatestAppContext<unknown, Settings>();
   const { mapFieldValues } = useMapFieldValues();
 
   return (

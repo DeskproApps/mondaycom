@@ -178,6 +178,7 @@ export const LinkItem = () => {
                         fields={[
                           {
                             ...item,
+                            board:item.board.name,
                             linked_tickets: itemLinketCount[item.id] || 0,
                           },
                         ]}

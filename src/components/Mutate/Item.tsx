@@ -49,10 +49,12 @@ export const MutateItem = ({ id }: { id?: string }) => {
     setValue,
     watch,
     reset,
-  } = useForm({
+  } = useForm(
+    {
     resolver: zodResolver(schema as ZodTypeAny),
-  });
-
+  }
+);
+ 
   useEffect(() => {
     reset({ workspace: null });
   }, [reset]);
@@ -113,7 +115,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
 
   const columnsQuery = useQueryWithClient(
     ["columns", selectedBoard as string],
-    (client) => getBoardColumns(client, selectedBoard),
+    (client) => getBoardColumns(client, selectedBoard.id),
     {
       enabled: !!selectedBoard,
       onSuccess: (data) => {
@@ -135,7 +137,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
   );
 
   useEffect(() => {
-    if (!id || !itemQuery.isSuccess) return;
+    if (!id || !itemQuery.isSuccess || !itemQuery.data || !itemQuery.data[0]) return;
 
     const item = itemQuery.data[0];
 
@@ -191,7 +193,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
       name: item.name,
       id: item.id,
       workspace: item.workspace_id ?? null,
-      board: item.board_id,
+      board: {id: item.board.id, name: item.board.name},
       group: item.group.id,
       ...columnValues,
     });
@@ -222,7 +224,6 @@ export const MutateItem = ({ id }: { id?: string }) => {
     if (inputs.length === 0) return;
 
     const newObj: { [key: string]: ZodTypeAny } = {};
-
     inputs.forEach((field) => {
       if (field.required) {
         newObj[field.name] = z.string().nonempty();
@@ -231,12 +232,21 @@ export const MutateItem = ({ id }: { id?: string }) => {
       } else {
         newObj[field.name] = z.string().optional();
       }
+
+      // Update the schema for the `board` field when in edit mode
+      if (isEditMode && field.name === "board"){
+        newObj[field.name] = z.object({
+  id: z.string(),
+  name: z.string()
+}).required();
+      }
+
     });
 
     newObj.column_values = z.record(z.any()).optional();
 
     setSchema(getItemSchema(inputs, newObj));
-  }, []);
+  }, [isEditMode]);
 
   const workspaces = useMemo(() => {
     if (!workspacesQuery.isSuccess) return [];
@@ -409,6 +419,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
                 dropdownData={dropdownData}
               />
               <Stack style={{ width: "100%", justifyContent: "space-between" }}>
+                
                 <Button
                   type="submit"
                   data-testid="button-submit"

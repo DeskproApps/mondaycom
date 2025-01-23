@@ -12,19 +12,33 @@ const renderPage = () => {
 };
 
 jest.mock("../../src/api/api", () => {
+
   return {
     getItemsById: () => [
       {
-        id: "123",
-        board_id: "123",
-        name: "Item 1",
+        id: "123456",
+        name: "Fake Item",
+        state: "active",
+        created_at: "2025-01-16T17:10:26Z",
+        group: {
+          id: "topics",
+          name: "Epic Group"
+        },
+        board: {
+          id: "1234565789",
+          name: "DeskproBoard",
+        },
         workspace: "Epic Workspace",
-        board: "Epic Board",
-        group: "Epic Group",
         column_values: [],
+        creator: {
+          id: "789",
+          name: "John Doe"
+        },
+        updates: [],
       },
     ],
   };
+
 });
 
 describe("Main", () => {
@@ -33,7 +47,7 @@ describe("Main", () => {
 
     const workspace = await waitFor(() => getByText(/Epic Workspace/i));
 
-    const board = await waitFor(() => getByText(/Epic Board/i));
+    const board = await waitFor(() => getByText(/DeskproBoard/i));
 
     await waitFor(() => {
       [workspace, board].forEach((el) => {

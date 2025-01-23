@@ -38,7 +38,7 @@ export const DropdownSelect = ({
   const { theme } = useDeskproAppTheme();
 
   const dataOptions = useMemo(() => {
-    return data?.map((dataInList) => ({
+    return (data?? []).map((dataInList) => ({
       key: dataInList.key,
       label: <Label label={dataInList.key}></Label>,
       value: dataInList.value,
