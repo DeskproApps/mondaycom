@@ -49,10 +49,12 @@ export const MutateItem = ({ id }: { id?: string }) => {
     setValue,
     watch,
     reset,
-  } = useForm({
+  } = useForm(
+    {
     resolver: zodResolver(schema as ZodTypeAny),
-  });
-
+  }
+);
+ 
   useEffect(() => {
     reset({ workspace: null });
   }, [reset]);
@@ -222,7 +224,6 @@ export const MutateItem = ({ id }: { id?: string }) => {
     if (inputs.length === 0) return;
 
     const newObj: { [key: string]: ZodTypeAny } = {};
-
     inputs.forEach((field) => {
       if (field.required) {
         newObj[field.name] = z.string().nonempty();
@@ -231,6 +232,16 @@ export const MutateItem = ({ id }: { id?: string }) => {
       } else {
         newObj[field.name] = z.string().optional();
       }
+
+      // Update the schema for the `board` field when in edit mode
+      if (isEditMode && field.name === "board"){
+        console.log("[LOG] board in edit mode reached")
+        newObj[field.name] = z.object({
+  id: z.string(),
+  name: z.string()
+}).required();
+      }
+
     });
 
     newObj.column_values = z.record(z.any()).optional();
@@ -410,7 +421,6 @@ export const MutateItem = ({ id }: { id?: string }) => {
               />
               <Stack style={{ width: "100%", justifyContent: "space-between" }}>
                 
-                {submitMutation.isIdle ? "idle" : "Not Idle"}
                 <Button
                   type="submit"
                   data-testid="button-submit"
