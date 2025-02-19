@@ -62,10 +62,5 @@
     "ts-jest": "^27.1.5",
     "typescript": "^5.7.2",
     "vite": "^6.0.11"
-  },
-  "pnpm": {
-    "overrides": {
-      "esbuild": "^0.25.0"
-    }
   }
 }
