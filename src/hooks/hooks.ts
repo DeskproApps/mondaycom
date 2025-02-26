@@ -98,7 +98,7 @@ export const useLinkItems = () => {
 
       await Promise.all(itemsIds.map((id) => incrementItemTicketCount(id)));
 
-      navigate("/");
+      navigate("/home");
 
       setIsLinking(false);
     },

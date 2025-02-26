@@ -46,7 +46,7 @@ export const ViewItem = () => {
         case "menuButton":
           await unlinkItem(itemId as string);
 
-          navigate("/redirect");
+          navigate("/home");
 
           break;
 
@@ -56,7 +56,7 @@ export const ViewItem = () => {
           break;
 
         case "homeButton":
-          navigate("/redirect");
+          navigate("/home");
       }
     },
   });

@@ -14,7 +14,6 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import { LoadingSpinner } from "@deskpro/app-sdk";
 import { Main } from "./pages/Main";
 import { query } from "./utils/query";
-import { Redirect } from "./components/Redirect/Redirect";
 import { Suspense } from "react";
 import { ViewItem } from "./pages/View/Item";
 import { QueryClientProvider, QueryErrorResetBoundary } from "@tanstack/react-query";
@@ -44,7 +43,6 @@ function App() {
                       <Route path="item/:itemId" element={<EditItem />} />
                     </Route>
                     <Route path="/findOrCreate" element={<FindOrCreate />} />
-                    <Route path="/redirect" element={<Redirect />} />
                     <Route path="/home" element={<Main />} />
                     <Route path="view">
                       <Route path="item/:itemId" element={<ViewItem />} />

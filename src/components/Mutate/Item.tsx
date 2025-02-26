@@ -65,7 +65,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
     async onElementEvent(id) {
       switch (id) {
         case "homeButton":
-          navigate("/redirect");
+          navigate("/home");
 
           break;
       }
@@ -203,7 +203,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
           submitMutation.data.data?.create_item?.id as string,
         ]));
 
-      navigate(!id ? "/redirect" : `/view/item/${id}`);
+      navigate(!id ? "/home" : `/view/item/${id}`);
     })();
   }, [
     submitMutation.isSuccess,
