@@ -1,19 +1,14 @@
-import {
-  ExternalIconLink,
-  Property,
-  useDeskproAppTheme,
-  useDeskproLatestAppContext,
-} from "@deskpro/app-sdk";
-import { ReactElement } from "react";
-import { StyledLink } from "../../styles";
-import { IJson } from "../../types/json";
-import { useMapFieldValues } from "../../hooks/mapFieldValues";
-import { PropertyRow } from "../PropertyRow/PropertyRow";
 import { AppLogo } from "../AppLogo/AppLogo";
-import { HorizontalDivider } from "../HorizontalDivider/HorizontalDivider";
 import { H1, H2, H3, P11, P5, Stack } from "@deskpro/deskpro-ui";
+import { HorizontalDivider } from "../HorizontalDivider/HorizontalDivider";
+import { IJson } from "../../types/json";
+import { PropertyRow } from "../PropertyRow/PropertyRow";
+import { ReactElement } from "react";
+import { Settings } from "@/types/deskpro";
+import { StyledLink } from "../../styles";
 import { substitutePlaceholders } from "../../utils/utils";
-import { Settings } from "@/types/types";
+import { useMapFieldValues } from "../../hooks/mapFieldValues";
+import { ExternalIconLink, Property, useDeskproAppTheme, useDeskproLatestAppContext } from "@deskpro/app-sdk";
 
 const SpaceBetweenFields = ({
   field: field,

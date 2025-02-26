@@ -1,13 +1,9 @@
-import {
-  useDeskproAppClient,
-  useDeskproAppEvents,
-  useInitialisedDeskproAppClient,
-} from "@deskpro/app-sdk";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { InputWithTitle } from "../../components/InputWithTitle/InputWithTitle";
 import { Button, P8, Stack } from "@deskpro/deskpro-ui";
-import { createNote } from "../../api/api";
+import { InputWithTitle } from "../../components/InputWithTitle/InputWithTitle";
+import { useDeskproAppClient, useDeskproAppEvents, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import createNote from "@/api/monday/createNote";
 
 export const CreateNote = () => {
   const { client } = useDeskproAppClient();
@@ -46,7 +42,7 @@ export const CreateNote = () => {
         <Button
           data-testid="button-submit"
           onClick={async () => {
-            if (!client) return;
+            if (!client || !itemId) return;
 
             setSubmitting(true);
 
@@ -56,7 +52,7 @@ export const CreateNote = () => {
               return;
             }
 
-            await createNote(client, itemId as string, note);
+            await createNote({ client, item_id: itemId, body: note });
 
             navigate(-1);
           }}

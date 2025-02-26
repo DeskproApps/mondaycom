@@ -1,18 +1,13 @@
-import {
-  LoadingSpinner,
-  useDeskproAppEvents,
-  useInitialisedDeskproAppClient,
-  useQueryWithClient,
-} from "@deskpro/app-sdk";
 import { FieldMapping } from "../../components/FieldMapping/FieldMapping";
-import ItemJson from "../../mapping/item.json";
-import { useNavigate, useParams } from "react-router-dom";
-import { useLinkItems, useTicketCount } from "../../hooks/hooks";
+import { IItem } from "../../api/types";
 import { Notes } from "../../components/Notes/Notes";
 import { Stack } from "@deskpro/deskpro-ui";
-import { getItemsById } from "../../api/api";
 import { useEffect, useState } from "react";
-import { IItem } from "../../api/types";
+import { useLinkItems, useTicketCount } from "../../hooks/hooks";
+import { useNavigate, useParams } from "react-router-dom";
+import { LoadingSpinner, useDeskproAppEvents, useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
+import getItemsById from "@/api/monday/getItemsById";
+import ItemJson from "../../mapping/item.json";
 
 export const ViewItem = () => {
   const { itemId } = useParams();

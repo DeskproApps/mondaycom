@@ -1,18 +1,11 @@
-import {
-  LoadingSpinner,
-  Title,
-  useDeskproAppEvents,
-  useDeskproLatestAppContext,
-  useInitialisedDeskproAppClient,
-  useQueryWithClient,
-} from "@deskpro/app-sdk";
-import { useNavigate } from "react-router-dom";
+import { FieldMapping } from "../components/FieldMapping/FieldMapping";
+import { LoadingSpinner, Title, useDeskproAppEvents, useDeskproLatestAppContext, useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
+import { Stack } from "@deskpro/deskpro-ui";
 import { useEffect, useState } from "react";
 import { useLinkItems, useTicketCount } from "../hooks/hooks";
-import { getItemsById } from "../api/api";
-import { FieldMapping } from "../components/FieldMapping/FieldMapping";
+import { useNavigate } from "react-router-dom";
+import getItemsById from "@/api/monday/getItemsById";
 import ItemJson from "../mapping/item.json";
-import { Stack } from "@deskpro/deskpro-ui";
 
 export const Main = () => {
   const { context } = useDeskproLatestAppContext();
@@ -97,7 +90,7 @@ export const Main = () => {
 
   if (items.length === 0) return <Title title="No found" />;
   return (
-    <Stack vertical style={{ width: "100%"}}>
+    <Stack vertical style={{ width: "100%" }}>
       <FieldMapping
         fields={items.map((e) => ({
           ...e,
