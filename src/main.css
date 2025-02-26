@@ -1,11 +1,12 @@
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   width: 100%;
   padding: 0px;
   margin: 0px;
 }
-body{
-  padding: 12px;
+
+body {
   box-sizing: border-box;
 }
-
