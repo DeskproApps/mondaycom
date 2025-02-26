@@ -1,6 +1,6 @@
 import { Button, P8, Stack } from "@deskpro/deskpro-ui";
 import { InputWithTitle } from "../../components/InputWithTitle/InputWithTitle";
-import { useDeskproAppClient, useDeskproAppEvents, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
+import { useDeskproAppClient, useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import createNote from "@/api/monday/createNote";
@@ -17,16 +17,9 @@ export const CreateNote = () => {
   useInitialisedDeskproAppClient((client) => {
     client.setTitle("Create Update");
 
-    client.deregisterElement("editButton");
-  });
-
-  useDeskproAppEvents({
-    async onElementEvent(id) {
-      switch (id) {
-        case "homeButton":
-          navigate("/home");
-      }
-    },
+    client.deregisterElement("editButton")
+    client.deregisterElement("menuButton")
+    client.deregisterElement("homeButton")
   });
 
   return (

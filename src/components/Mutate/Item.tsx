@@ -1,3 +1,4 @@
+import { useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
 import { Button, Stack } from "@deskpro/deskpro-ui";
 import { DropdownSelect } from "../DropdownSelect/DropdownSelect";
 import { FieldMappingInput } from "../FieldMappingInput/FieldMappingInput";
@@ -13,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import { useQueryMutationWithClient } from "../../hooks/useQueryWithClient";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ZodTypeAny, z } from "zod";
-import { useDeskproAppEvents, useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
 import createItem from "@/api/monday/createItem";
 import editItem from "@/api/monday/editItem";
 import getBoardColumns from "@/api/monday/getBoardColumns";
@@ -56,21 +56,15 @@ export const MutateItem = ({ id }: { id?: string }) => {
   const [selectedWorkspace, selectedBoard] = watch(["workspace", "board"]);
 
   useInitialisedDeskproAppClient((client) => {
-    client.deregisterElement("plusButton");
+    client.setTitle(id ? "Edit Item" : "Create Item");
 
-    client.deregisterElement("editButton");
-  });
-
-  useDeskproAppEvents({
-    async onElementEvent(id) {
-      switch (id) {
-        case "homeButton":
-          navigate("/home");
-
-          break;
-      }
-    },
-  });
+    // Remove elements when on the edit page
+    if (id) {
+      client.deregisterElement("editButton")
+      client.deregisterElement("menuButton")
+      client.deregisterElement("homeButton")
+    }
+  }, []);
 
   const submitMutation = useQueryMutationWithClient((client, data) => {
     return isEditMode

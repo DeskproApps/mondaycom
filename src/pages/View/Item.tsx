@@ -1,11 +1,11 @@
 import { FieldMapping } from "../../components/FieldMapping/FieldMapping";
 import { IItem } from "../../api/types";
+import { LoadingSpinner, useDeskproAppEvents, useDeskproElements, useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
 import { Notes } from "../../components/Notes/Notes";
 import { Stack } from "@deskpro/deskpro-ui";
 import { useEffect, useState } from "react";
 import { useLinkItems, useTicketCount } from "../../hooks/hooks";
 import { useNavigate, useParams } from "react-router-dom";
-import { LoadingSpinner, useDeskproAppEvents, useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
 import getItemsById from "@/api/monday/getItemsById";
 import ItemJson from "../../mapping/item.json";
 
@@ -13,22 +13,22 @@ export const ViewItem = () => {
   const { itemId } = useParams();
   const { unlinkItem } = useLinkItems();
   const navigate = useNavigate();
-  const [itemLinketCount, setItemLinkedCount] = useState<number>(0);
+  const [itemLinketCount, setItemLinkedCount] = useState<number>(0)
+  
 
   const { getItemTicketCount } = useTicketCount();
 
+  useDeskproElements(({ clearElements, registerElement }) => {
+    clearElements();
+    registerElement("editButton", { type: "edit_button" })
+    registerElement("homeButton", { type: "home_button" })
+    registerElement("refresh", { type: "refresh_button" })
+    registerElement("menuButton", { type: "menu", items: [{ title: "Unlink Item" }] })
+  }, [])
+
+
   useInitialisedDeskproAppClient((client) => {
     client.setTitle("monday.com");
-
-    client.registerElement("editButton", {
-      type: "edit_button",
-    });
-
-    client.registerElement("homeButton", {
-      type: "home_button",
-    });
-
-    client.deregisterElement("plusButton");
   }, []);
 
   useEffect(() => {
