@@ -4,24 +4,71 @@
   "description": "Streamline your project management, collaboration, and organization with Monday.com.",
   "version": "0.0.29",
   "scope": "agent",
+  "secrets": "7lyt4PgjMdn6pueSZPGSbVmRb0Vd3ttPgUtTcPBPD2IvPeUX57vrKWxLKb74H7A5r73vobVxcuVL2kE607W2nMZGRY97M9vTpi/Y7hBXAbLLK71xjUiBto5meuKzbIlKz82qRPT6BXSfYB+dH2M91dfH8krCCN7bMVR7JW2APSFJCMw+CC0axo7+9LnkbTjj+lK3/+5JvHHL60/+iDnyhqfM7hPC7Z5Dk4G2doQ6is4PFWRTym7+vHY7I3vXPHm+x0aGHKF1Ow1CkyZNqmqhTRL+KXwDhCpvXQ8dwxEmSV/W/hNO1QWRdBxM7UOMqSG6XtQcsrXDnC+5UXNswDLErYcfu+wHDxSaJxdmm1nc7b8gYqhahDNXuZUvCvqHj4LvLG0SjyjhsP44uCpVvyLXu9HPCSmcH/yoOC3R3tZ32VJs9UiDQ8DDku7DrxAym1kR7Rg0HhqXQjz/wDUps0LC3SX0X62gAKKj4Cjrnq84iCcsCIVcpdjpUmjIgfRFUUpD2+tYT/J3C7WK3GJQSHEKqPNVXwvWdzPdtllbs+AiyZnrCAXz1vVhxKoz8WllHcKpMLMwjP1hEbOZdGgAy575xvU9boYLmdUCFLse2ok7YOEOZ793g1E4lieUltB5KO5InagomoVmL20v9X/w2wbpxDymnOCLLuiVkUa17v6/1qxPEH8VQUXNkowusJA3F8UVVVPEjEcQ//8oIexqyydbdnB3F/coRRBL1+OUSt7ajdgSPaNjWMiNLzkBSKMBK42SnRGRIuuJHssrrlmZCaDyXsCGR/3Oz4WgEDlF7NFAPRHNEymVFZEyUjIu+HQ1E+avd09kkzJmkWvXsEp3diGS1ZbMYbx9JZytmoMv91tD11eIAR1XnLeLbezB0+WuXvUwvVk1Vv+Exa2tX+Vu9/SQNLfZxqdF7UT73KWQMkHTH94f0jZCBdR5FJbKnUAathrT7fVge8OUmPfHJ+oEri+NOxrUigMZGvvmTqJYXJ1qQKW5d72zLsxo82BPbB+u9K16w529rb18yWN1qYFlVbV7i8FNeP0bNPkj4ud+gLsVtaPwMROQBhcnJyzdfGsA0mjE",
   "isSingleInstall": false,
   "hasDevMode": true,
   "targets": [{ "target": "ticket_sidebar", "entrypoint": "index.html" }],
   "settings": {
-    "access_token": {
-      "title": "Access token",
-      "description": "monday.com Access token",
-      "type": "string",
-      "isRequired": true,
-      "isBackendOnly": true
+    "use_deskpro_saas": {
+      "title": "One-Click Installation",
+      "type": "boolean",
+      "default": true,
+      "isRequired": false,
+      "isBackendOnly": false,
+      "order": 5
+    },
+    "use_access_token": {
+      "title": "Use Access Token",
+      "type": "boolean",
+      "isRequired": false,
+      "isBackendOnly": false,
+      "default": false,
+      "condition": "settings.use_deskpro_saas != true",
+      "order": 10
     },
     "instance_url": {
-      "title": "monday.com Instance URL",
+      "title": "Instance URL",
       "description": "E.g. https://deskpro.monday.com",
       "validationPattern": "^https?:\\/\\/.+\\.+monday.com$",
       "type": "string",
       "isRequired": true,
-      "isBackendOnly": false
+      "isBackendOnly": false,
+      "order": 20
+    },
+    "access_token": {
+      "title": "Access token",
+      "type": "string",
+      "isRequired": false,
+      "isBackendOnly": true,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token == true",
+      "order": 30
+    },
+    "client_id": {
+      "title": "Client ID",
+      "type": "string",
+      "isRequired": false,
+      "isBackendOnly": false,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
+      "order": 40
+    },
+    "client_secret": {
+      "title": "Client Secret",
+      "type": "string",
+      "isRequired": false,
+      "isBackendOnly": true,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
+      "order": 50
+    },
+    "callback_url": {
+      "title": "Callback URL",
+      "type": "app_embedded",
+      "options": {
+        "entrypoint": "#/admin/callback"
+      },
+      "isRequired": false,
+      "isBackendOnly": true,
+      "condition": "settings.use_deskpro_saas != true && settings.use_access_token != true",
+      "order": 60
     }
   },
   "entityAssociations": {
@@ -33,7 +80,8 @@
   },
   "proxy": {
     "whitelist": [
-      { "url": "https://api.monday.com/v2", "methods": ["POST"], "timeout": 20 }
+      { "url": "https://api.monday.com/v2", "methods": ["POST"], "timeout": 20 },
+      { "url": "https://auth.monday.com/oauth2/token", "methods": ["POST"], "timeout": 20 }
     ]
   }
 }
