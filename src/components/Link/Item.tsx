@@ -111,7 +111,7 @@ export const LinkItem = () => {
       {boardsQuery.isFetching ? (
         <LoadingSpinnerCenter />
       ) : (
-        <Stack vertical gap={6} style={{ width: "100%" }}>
+        <Stack vertical gap={6} style={{ width: "100%" }} padding={12}>
           <DropdownSelect
             title="Board"
             data={boards?.map((board) => ({

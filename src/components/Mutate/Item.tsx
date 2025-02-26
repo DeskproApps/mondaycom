@@ -342,7 +342,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
       onSubmit={handleSubmit((data) => submitMutation.mutate(data))}
       style={{ width: "100%" }}
     >
-      <Stack vertical style={{ width: "100%" }} gap={6}>
+      <Stack vertical style={{ width: "100%" }} gap={6} padding={12}>
         <InputWithTitleRegister
           register={register("name")}
           required

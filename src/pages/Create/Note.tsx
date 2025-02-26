@@ -30,7 +30,7 @@ export const CreateNote = () => {
   });
 
   return (
-    <Stack style={{ width: "100%" }} vertical gap={8}>
+    <Stack style={{ width: "100%" }} vertical gap={8} padding={12}>
       <InputWithTitle
         title="New update"
         setValue={(e) => setNote(e.target.value)}

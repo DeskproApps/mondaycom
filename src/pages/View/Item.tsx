@@ -76,7 +76,7 @@ export const ViewItem = () => {
   if (itemsByIdQuery.isFetching) return <LoadingSpinner />;
 
   return (
-    <Stack vertical gap={10}>
+    <Stack vertical gap={10} padding={12}>
       <FieldMapping
         fields={[
           {
