@@ -23,7 +23,7 @@ Head over to your monday.com homepage and click on your profile image on the top
 
 [![](/docs/assets/setup/developers.png)](/docs/assets/setup/developers.png)
 
-On the developers page, click "Create app". You'll be show a form to create your app, Give it a name, such as "Deskpro App," copy the `Client ID` & `Client Secret`, then click "Save Changes" and enter the credentials in the app settings drawer Deskpro.
+On the developers page, click "Create app". You'll be shown a form to create your app, Give it a name, such as "Deskpro App," copy the `Client ID` & `Client Secret`, then click "Save Changes" and enter the credentials in the app settings drawer Deskpro.
 
 [![](/docs/assets/setup/app_setup_form.png)](/docs/assets/setup/app_setup_form.png)
 
