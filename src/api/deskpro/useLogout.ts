@@ -1,3 +1,4 @@
+import { OAuth2AccessTokenPath } from "@/constants/deskpro";
 import { useCallback } from "react";
 import { useDeskproAppClient } from "@deskpro/app-sdk";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +14,7 @@ export function useLogout() {
 
         client.setBadgeCount(0)
 
-        client.deleteUserState("oauth2/access_token")
+        client.deleteUserState(OAuth2AccessTokenPath)
             .catch(() => { })
             .finally(() => {
                 navigate("/login");

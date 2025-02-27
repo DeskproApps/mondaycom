@@ -1,4 +1,5 @@
 import { IDeskproClient, proxyFetch } from "@deskpro/app-sdk";
+import { OAuth2AccessTokenPath } from "@/constants/deskpro";
 
 interface InstalledRequestParams {
     client: IDeskproClient,
@@ -17,7 +18,7 @@ export default async function installedRequest(params: InstalledRequestParams){
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: isUsingOAuth2 ? `Bearer [user[oauth2/access_token]]` : "__access_token__",
+            Authorization: isUsingOAuth2 ? `Bearer [user[${OAuth2AccessTokenPath}]]` : "__access_token__",
             ...headers,
         },
         body: JSON.stringify({ query: query.replaceAll("\n", "") }),
