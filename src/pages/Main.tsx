@@ -1,5 +1,6 @@
 import { AppElementPayload, LoadingSpinner, Title, useDeskproAppEvents, useDeskproElements, useDeskproLatestAppContext, useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
 import { FieldMapping } from "../components/FieldMapping/FieldMapping";
+import { Settings } from "@/types/deskpro";
 import { Stack } from "@deskpro/deskpro-ui";
 import { useEffect, useState } from "react";
 import { useLinkItems, useTicketCount } from "../hooks/hooks";
@@ -9,7 +10,7 @@ import getItemsById from "@/api/monday/getItemsById";
 import ItemJson from "../mapping/item.json";
 
 export const Main = () => {
-  const { context } = useDeskproLatestAppContext();
+  const { context } = useDeskproLatestAppContext<unknown, Settings>();
   const navigate = useNavigate();
   const [itemIds, setItemIds] = useState<string[]>([]);
   const [itemLinketCount, setItemLinkedCount] = useState<
@@ -19,12 +20,16 @@ export const Main = () => {
   const { getMultipleItemsTicketCount } = useTicketCount();
   const { logoutActiveUser } = useLogout()
 
+  const isUsingOAuth = context?.settings.use_access_token !== true
+
 
   useDeskproElements(({ clearElements, registerElement }) => {
     clearElements();
     registerElement("plusButton", { type: "plus_button" })
     registerElement("refresh", { type: "refresh_button" })
-    registerElement("menuButton", { type: "menu", items: [{ title: "Logout" }] })
+    if (isUsingOAuth) {
+      registerElement("menuButton", { type: "menu", items: [{ title: "Logout" }] })
+    }
   }, [])
 
   useDeskproAppEvents({
@@ -34,7 +39,9 @@ export const Main = () => {
           navigate("/findOrCreate");
           break;
         case "menuButton":
-          logoutActiveUser()
+          if (isUsingOAuth) {
+            logoutActiveUser()
+          }
           break;
       }
     },
