@@ -14,7 +14,9 @@ const LoginPage: FC = () => {
     const { onSignIn, authUrl, isLoading, error } = useLogin();
     const { context } = useDeskproLatestAppContext<unknown, Settings>()
 
-    const mode = context?.settings.use_deskpro_saas ? 'global' : 'local';
+    const mode = context?.settings.use_advanced_connect ? 'local' : 'global';
+
+    
     const installURL = `https://auth.monday.com/oauth2/authorize?client_id=${mode === "global" ? "91871bc3c3f1f987f513063f6780c348" : context?.settings.client_id}&response_type=install`
 
     return (

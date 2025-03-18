@@ -14,7 +14,7 @@ export const FindOrCreate = ({ pageParam }: { pageParam?: 0 | 1 }) => {
   const { logoutActiveUser } = useLogout()
   const navigate = useNavigate();
 
-  const isUsingOAuth = context?.settings.use_access_token !== true || context.settings.use_deskpro_saas === true
+  const isUsingOAuth = context?.settings.use_access_token !== true || context.settings.use_advanced_connect === false
 
   useDeskproElements(({ clearElements, registerElement }) => {
     clearElements();
