@@ -28,8 +28,7 @@ export default function useLogin(): UseLogin {
     const isUsingOAuth = context?.settings.use_access_token !== true || context.settings.use_advanced_connect === false
 
     useInitialisedDeskproAppClient(async (client) => {
-        if (context?.settings.use_advanced_connect === undefined || !ticketId) {
-            // Make sure settings have loaded.
+        if (!ticketId) {
             return
         }
 
@@ -39,7 +38,7 @@ export default function useLogin(): UseLogin {
             return
 
         }
-        const mode = context?.settings.use_advanced_connect ? 'local' : 'global';
+        const mode = context?.settings.use_advanced_connect === false ? 'global' : 'local';
 
         const clientId = context?.settings.client_id;
         if (mode === 'local' && typeof clientId !== 'string') {
