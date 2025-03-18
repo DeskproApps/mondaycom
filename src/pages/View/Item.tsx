@@ -1,39 +1,34 @@
-import {
-  LoadingSpinner,
-  useDeskproAppEvents,
-  useInitialisedDeskproAppClient,
-  useQueryWithClient,
-} from "@deskpro/app-sdk";
 import { FieldMapping } from "../../components/FieldMapping/FieldMapping";
-import ItemJson from "../../mapping/item.json";
-import { useNavigate, useParams } from "react-router-dom";
-import { useLinkItems, useTicketCount } from "../../hooks/hooks";
+import { IItem } from "../../api/types";
+import { LoadingSpinner, useDeskproAppEvents, useDeskproElements, useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
 import { Notes } from "../../components/Notes/Notes";
 import { Stack } from "@deskpro/deskpro-ui";
-import { getItemsById } from "../../api/api";
 import { useEffect, useState } from "react";
-import { IItem } from "../../api/types";
+import { useLinkItems, useTicketCount } from "../../hooks/hooks";
+import { useNavigate, useParams } from "react-router-dom";
+import getItemsById from "@/api/monday/getItemsById";
+import ItemJson from "../../mapping/item.json";
 
 export const ViewItem = () => {
   const { itemId } = useParams();
   const { unlinkItem } = useLinkItems();
   const navigate = useNavigate();
-  const [itemLinketCount, setItemLinkedCount] = useState<number>(0);
+  const [itemLinketCount, setItemLinkedCount] = useState<number>(0)
+  
 
   const { getItemTicketCount } = useTicketCount();
 
+  useDeskproElements(({ clearElements, registerElement }) => {
+    clearElements();
+    registerElement("editButton", { type: "edit_button" })
+    registerElement("homeButton", { type: "home_button" })
+    registerElement("refresh", { type: "refresh_button" })
+    registerElement("menuButton", { type: "menu", items: [{ title: "Unlink Item" }] })
+  }, [])
+
+
   useInitialisedDeskproAppClient((client) => {
     client.setTitle("monday.com");
-
-    client.registerElement("editButton", {
-      type: "edit_button",
-    });
-
-    client.registerElement("homeButton", {
-      type: "home_button",
-    });
-
-    client.deregisterElement("plusButton");
   }, []);
 
   useEffect(() => {
@@ -51,7 +46,7 @@ export const ViewItem = () => {
         case "menuButton":
           await unlinkItem(itemId as string);
 
-          navigate("/redirect");
+          navigate("/home");
 
           break;
 
@@ -61,7 +56,7 @@ export const ViewItem = () => {
           break;
 
         case "homeButton":
-          navigate("/redirect");
+          navigate("/home");
       }
     },
   });
@@ -81,7 +76,7 @@ export const ViewItem = () => {
   if (itemsByIdQuery.isFetching) return <LoadingSpinner />;
 
   return (
-    <Stack vertical gap={10}>
+    <Stack vertical gap={10} padding={12}>
       <FieldMapping
         fields={[
           {

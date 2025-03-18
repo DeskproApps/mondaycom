@@ -1,54 +1,32 @@
-import {
-  useDeskproAppEvents,
-  useInitialisedDeskproAppClient,
-  useQueryWithClient,
-} from "@deskpro/app-sdk";
+import { useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
 import { Button, Checkbox, Stack } from "@deskpro/deskpro-ui";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getBoardsByWorkspaceId, getBoardsItems } from "../../api/api";
-import { IItem } from "../../api/types";
-import { useLinkItems, useTicketCount } from "../../hooks/hooks";
-import ItemJson from "../../mapping/item.json";
-import { Title } from "../../styles";
 import { DropdownSelect } from "../DropdownSelect/DropdownSelect";
 import { FieldMapping } from "../FieldMapping/FieldMapping";
 import { HorizontalDivider } from "../HorizontalDivider/HorizontalDivider";
+import { IItem } from "../../api/types";
 import { LoadingSpinnerCenter } from "../LoadingSpinnerCenter/LoadingSpinnerCenter";
+import { Title } from "../../styles";
+import { useLinkItems, useTicketCount } from "../../hooks/hooks";
+import { useState } from "react";
+import getBoardsByWorkspaceId from "@/api/monday/getBoardsByWorkspaceId";
+import getBoardsItems from "@/api/monday/getBoardsItems";
+import ItemJson from "../../mapping/item.json";
 
 export const LinkItem = () => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [linkedItems, setLinkedItems] = useState<string[]>([]);
-  const [itemLinketCount, setItemLinkedCount] = useState<
-    Record<string, number>
-  >({});
+  const [itemLinketCount, setItemLinkedCount] = useState<Record<string, number>>({});
   const [selectedBoard, setSelectedBoard] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
   const [items, setItems] = useState<Record<string, IItem[]>>({});
   const { getLinkedItems, linkItems } = useLinkItems();
   const { getMultipleItemsTicketCount } = useTicketCount();
-  const navigate = useNavigate();
-
   const itemsFromBoard = items[selectedBoard as string];
 
   useInitialisedDeskproAppClient((client) => {
     client.setTitle("Link Item");
-
-    client.registerElement("homeButton", {
-      type: "home_button",
-    });
-
-    client.deregisterElement("plusButton");
   }, []);
 
-  useDeskproAppEvents({
-    async onElementEvent(id) {
-      switch (id) {
-        case "homeButton":
-          navigate("/redirect");
-      }
-    },
-  });
 
   const boardsQuery = useQueryWithClient(
     ["getBoards"],
@@ -70,7 +48,7 @@ export const LinkItem = () => {
 
   const itemsQuery = useQueryWithClient(
     ["getItems", page.toString(), selectedBoard as string],
-    (client) => getBoardsItems(client, page, selectedBoard as string),
+    (client) => getBoardsItems({ client, page, boardId: selectedBoard as string }),
     {
       enabled: !!selectedBoard,
       onSuccess: async (data) => {
@@ -116,7 +94,7 @@ export const LinkItem = () => {
       {boardsQuery.isFetching ? (
         <LoadingSpinnerCenter />
       ) : (
-        <Stack vertical gap={6} style={{ width: "100%" }}>
+        <Stack vertical gap={6} style={{ width: "100%" }} padding={12}>
           <DropdownSelect
             title="Board"
             data={boards?.map((board) => ({
@@ -178,7 +156,7 @@ export const LinkItem = () => {
                         fields={[
                           {
                             ...item,
-                            board:item.board.name,
+                            board: item.board.name,
                             linked_tickets: itemLinketCount[item.id] || 0,
                           },
                         ]}

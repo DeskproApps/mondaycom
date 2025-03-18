@@ -1,25 +1,24 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import {
-  QueryClientProvider,
-  QueryErrorResetBoundary,
-} from "@tanstack/react-query";
-import { ErrorBoundary } from "react-error-boundary";
-import { HashRouter, Route, Routes } from "react-router-dom";
-import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
-import { Main } from "./pages/Main";
+import "@deskpro/deskpro-ui/dist/deskpro-custom-icons.css";
+import "@deskpro/deskpro-ui/dist/deskpro-ui.css";
 import "flatpickr/dist/themes/light.css";
 import "simplebar/dist/simplebar.min.css";
 import "tippy.js/dist/tippy.css";
-import { LoadingSpinner } from "@deskpro/app-sdk";
-import "@deskpro/deskpro-ui/dist/deskpro-custom-icons.css";
-import "@deskpro/deskpro-ui/dist/deskpro-ui.css";
-import { Suspense } from "react";
-import { Redirect } from "./components/Redirect/Redirect";
+import { AdminCallbackPage } from "./pages/Admin/Callback";
 import { CreateNote } from "./pages/Create/Note";
-import { FindOrCreate } from "./pages/FindOrCreate/FindOrCreate";
-import { ViewItem } from "./pages/View/Item";
-import { query } from "./utils/query";
 import { EditItem } from "./pages/Edit/Item";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
+import { FindOrCreate } from "./pages/FindOrCreate/FindOrCreate";
+import { HashRouter, Route, Routes } from "react-router-dom";
+import { LoadingSpinner } from "@deskpro/app-sdk";
+import { Main } from "./pages/Main";
+import { query } from "./utils/query";
+import { Suspense } from "react";
+import { ViewItem } from "./pages/View/Item";
+import { QueryClientProvider, QueryErrorResetBoundary } from "@tanstack/react-query";
+import LoginPage from "./pages/Login";
+import LoadingPage from "./pages/Loading";
 
 function App() {
   return (
@@ -31,6 +30,12 @@ function App() {
               <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
                 <Routes>
                   <Route path="/">
+                    <Route index element={<LoadingPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+
+                    <Route path="admin">
+                      <Route path="callback" element={<AdminCallbackPage />} />
+                    </Route>
                     <Route path="create">
                       <Route path="note/:itemId" element={<CreateNote />} />
                     </Route>
@@ -38,8 +43,7 @@ function App() {
                       <Route path="item/:itemId" element={<EditItem />} />
                     </Route>
                     <Route path="/findOrCreate" element={<FindOrCreate />} />
-                    <Route path="/redirect" element={<Redirect />} />
-                    <Route index element={<Main />} />
+                    <Route path="/home" element={<Main />} />
                     <Route path="view">
                       <Route path="item/:itemId" element={<ViewItem />} />
                     </Route>

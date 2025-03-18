@@ -13,7 +13,3 @@ export type FieldMappingInputs = {
   multiple?: boolean;
   settings_str?: string;
 }[];
-
-export type Settings ={
-  instance_url?: string
-}

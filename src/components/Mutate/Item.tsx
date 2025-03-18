@@ -1,33 +1,27 @@
-import {
-  useDeskproAppEvents,
-  useInitialisedDeskproAppClient,
-  useQueryWithClient,
-} from "@deskpro/app-sdk";
+import { useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
 import { Button, Stack } from "@deskpro/deskpro-ui";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { ZodTypeAny, z } from "zod";
-import {
-  createItem,
-  editItem,
-  getBoardColumns,
-  getBoardsByWorkspaceId,
-  getItemsById,
-  getUsers,
-  getWorkspaces,
-} from "../../api/api";
-import { useLinkItems } from "../../hooks/hooks";
-import { useQueryMutationWithClient } from "../../hooks/useQueryWithClient";
-import itemJson from "../../mapping/item.json";
-import { getItemSchema } from "../../schemas";
-import { FieldMappingInputs } from "../../types/types";
-import { getDropdownDataForObject } from "../../utils/utils";
 import { DropdownSelect } from "../DropdownSelect/DropdownSelect";
 import { FieldMappingInput } from "../FieldMappingInput/FieldMappingInput";
+import { FieldMappingInputs } from "../../types/types";
+import { getDropdownDataForObject } from "../../utils/utils";
+import { getItemSchema } from "../../schemas";
 import { InputWithTitleRegister } from "../InputWithTitle/InputWithTitleRegister";
 import { LoadingSpinnerCenter } from "../LoadingSpinnerCenter/LoadingSpinnerCenter";
+import { useEffect, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useLinkItems } from "../../hooks/hooks";
+import { useNavigate } from "react-router-dom";
+import { useQueryMutationWithClient } from "../../hooks/useQueryWithClient";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ZodTypeAny, z } from "zod";
+import createItem from "@/api/monday/createItem";
+import editItem from "@/api/monday/editItem";
+import getBoardColumns from "@/api/monday/getBoardColumns";
+import getBoardsByWorkspaceId from "@/api/monday/getBoardsByWorkspaceId";
+import getItemsById from "@/api/monday/getItemsById";
+import getUsers from "@/api/monday/getUsers";
+import getWorkspaces from "@/api/monday/getWorkspaces";
+import itemJson from "../../mapping/item.json";
 
 const inputs = itemJson.create;
 
@@ -51,10 +45,10 @@ export const MutateItem = ({ id }: { id?: string }) => {
     reset,
   } = useForm(
     {
-    resolver: zodResolver(schema as ZodTypeAny),
-  }
-);
- 
+      resolver: zodResolver(schema as ZodTypeAny),
+    }
+  );
+
   useEffect(() => {
     reset({ workspace: null });
   }, [reset]);
@@ -62,21 +56,15 @@ export const MutateItem = ({ id }: { id?: string }) => {
   const [selectedWorkspace, selectedBoard] = watch(["workspace", "board"]);
 
   useInitialisedDeskproAppClient((client) => {
-    client.deregisterElement("plusButton");
+    client.setTitle(id ? "Edit Item" : "Create Item");
 
-    client.deregisterElement("editButton");
-  });
-
-  useDeskproAppEvents({
-    async onElementEvent(id) {
-      switch (id) {
-        case "homeButton":
-          navigate("/redirect");
-
-          break;
-      }
-    },
-  });
+    // Remove elements when on the edit page
+    if (id) {
+      client.deregisterElement("editButton")
+      client.deregisterElement("menuButton")
+      client.deregisterElement("homeButton")
+    }
+  }, []);
 
   const submitMutation = useQueryMutationWithClient((client, data) => {
     return isEditMode
@@ -193,7 +181,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
       name: item.name,
       id: item.id,
       workspace: item.workspace_id ?? null,
-      board: {id: item.board.id, name: item.board.name},
+      board: { id: item.board.id, name: item.board.name },
       group: item.group.id,
       ...columnValues,
     });
@@ -209,7 +197,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
           submitMutation.data.data?.create_item?.id as string,
         ]));
 
-      navigate(!id ? "/redirect" : `/view/item/${id}`);
+      navigate(!id ? "/home" : `/view/item/${id}`);
     })();
   }, [
     submitMutation.isSuccess,
@@ -234,11 +222,11 @@ export const MutateItem = ({ id }: { id?: string }) => {
       }
 
       // Update the schema for the `board` field when in edit mode
-      if (isEditMode && field.name === "board"){
+      if (isEditMode && field.name === "board") {
         newObj[field.name] = z.object({
-  id: z.string(),
-  name: z.string()
-}).required();
+          id: z.string(),
+          name: z.string()
+        }).required();
       }
 
     });
@@ -348,7 +336,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
       onSubmit={handleSubmit((data) => submitMutation.mutate(data))}
       style={{ width: "100%" }}
     >
-      <Stack vertical style={{ width: "100%" }} gap={6}>
+      <Stack vertical style={{ width: "100%" }} gap={6} padding={12}>
         <InputWithTitleRegister
           register={register("name")}
           required
@@ -419,7 +407,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
                 dropdownData={dropdownData}
               />
               <Stack style={{ width: "100%", justifyContent: "space-between" }}>
-                
+
                 <Button
                   type="submit"
                   data-testid="button-submit"
