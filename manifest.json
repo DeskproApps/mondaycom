@@ -2,7 +2,7 @@
   "name": "@deskpro-apps/mondaycom",
   "title": "monday.com",
   "description": "Streamline your project management, collaboration, and organization with Monday.com.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scope": "agent",
   "secrets": "FI8rVtS9YTamh8ufYykOUTQCveuKnGGgJQjXIx6QhzwH0Hfo/HvPeDjOYXX5ZRgTr5JetqhPTv3RrLtMvxDrCSmJald/x/vmQASiNxW3tq+9vD+msTdLEKKG6PGXajDuXSb9sNjt04sGEYq7OaOYyQt67VSKzQDCVKC1EL+x9FIUHyaKi7VYdRKnPS4jRMM6HgUpZ0OeC2A5tgr5rH3gOqVQe87CIbz9itEuRc3va4gwrzjHpKGBgzikoDcH6/zkGZeZucOG0D6Nbi4BcYf17KraVseiV7aJ6W0HuNZHvUW9z61hHeGxSNi+ZzYUuH3eZQpGEfUD468Y+qQF5D6HU70x71chFixfeW5+QhNPMxCe91C+DBz2aXpajuYfL+tzIsDpO7Sr+czjG759sb1717mVx/dLNzZHjqvRhG+uly2MzrE058/GZNeEwsqPbbfE2pBaqP3BpbYqMFy6T2SCckXCxcSBBbXbE72TzElfg2DtI0MwlRVYVRkAwobeaclxA6C7E4a34UXwNvdwbWS7eoglGJ4EknHCOYNqDsCXiPtxMxKnMUsVPz5475CD9LX5/T5IVLoQuBty4VC5OVTm2IqR6fseAXxtXuBUU+uY3inh57WhVUVy/gyO32T13WTcwxK1bYI8ryii6crUDsa7v1cAGgKTTTiEaIXjQRYHA9ENLKEy7QD3Rxjk6UHEfxGkA9kkutLYN97eZtKxuHAnfemoh8JoxGSR3MD9xD1kLnNQj9lQyoCw46f54v6wbVXIu6Xrx0pfBjTuk2+rqW8hxEf9n3AEpF3XtZP4JX4jUgXt3Zq0xQbIB+UVKOpBwB92f/a/N2b6DWrf/N0TpnHpDqcRne7CRPkVqQkG/3D1MOYleEB8wrq4k3e+MQtZTqbTy24jIugOTCINNzknYUTUUcJLkKd0A6iddC2niAaduTjvDvOG3zSPCPwvP/5dHbF4yCAOaR+EIwW5moMD4CFrjAkO6X0c3ZTlQU7Z7LoKR2kGyXjHYW+gLZ7Y5/SAl7SEMKdqCLDR+rgCOJh8+xiCLfmNlfCqATF+/TwoqVc0t/pzegwof+GA+mY6wWqWjf1XyIRfx5dyy4HmJofkjUcFN4RCT1d1Mh9ToROkNR/2+ZwRWU8GY0vth7Wpn4AUSs1fBExnNcxEMx2iX4t0LmNvd0E/1/cLX0Im2AMH28HecGr5/066kubo/Lsme6ZvY8f5",
   "isSingleInstall": false,
