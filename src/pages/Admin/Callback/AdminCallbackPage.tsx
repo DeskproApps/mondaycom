@@ -43,7 +43,7 @@ const AdminCallbackPage: FC = () => {
   return (
     <>
       <CopyToClipboardInput value={callbackUrl} />
-      <Description>The callback URL will be required during the Monday.com app setup</Description>
+      <Description>The callback URL will be required during the monday.com app setup</Description>
     </>
   );
 };

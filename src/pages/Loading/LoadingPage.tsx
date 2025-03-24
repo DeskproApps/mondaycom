@@ -25,7 +25,7 @@ const LoadingPage: FC = () => {
   });
 
   useInitialisedDeskproAppClient((client) => {
-    client.setTitle("Monday.com")
+    client.setTitle("monday.com")
 
     if (!context?.settings || !ticketId) {
       return

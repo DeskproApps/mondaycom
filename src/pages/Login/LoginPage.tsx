@@ -20,7 +20,7 @@ const LoginPage: FC = () => {
 
     return (
         <Stack padding={12} vertical gap={12} role="alert">
-            <H3>Log into your Monday.com account.</H3>
+            <H3>Log into your monday.com account.</H3>
             <Stack gap={10}>
                 <AnchorButton
                     disabled={!authUrl || isLoading}
