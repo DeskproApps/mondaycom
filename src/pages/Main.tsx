@@ -20,7 +20,7 @@ export const Main = () => {
   const { getMultipleItemsTicketCount } = useTicketCount();
   const { logoutActiveUser } = useLogout()
 
-  const isUsingOAuth = context?.settings.use_access_token !== true || context.settings.use_advanced_connect === false
+  const isUsingOAuth = context?.settings.use_access_token === false || context?.settings.use_advanced_connect === false
 
 
   useDeskproElements(({ clearElements, registerElement }) => {
@@ -101,6 +101,7 @@ export const Main = () => {
       <FieldMapping
         fields={items.map((e) => ({
           ...e,
+          board_id: e.board.id,
           board: e.board.name,
           linked_tickets: itemLinketCount[e.id],
         }))}

@@ -9,8 +9,9 @@ import {
 import { DropdownData, FieldMappingInputs } from "../../types/types";
 import { DropdownSelect } from "../DropdownSelect/DropdownSelect";
 import { InputWithTitleRegister } from "../InputWithTitle/InputWithTitleRegister";
-import { Stack } from "@deskpro/deskpro-ui";
-import { DateInput } from "@deskpro/app-sdk";
+import { H1, Stack } from "@deskpro/deskpro-ui";
+import { DateInput, useDeskproAppTheme } from "@deskpro/app-sdk";
+import formatFormDate from "@/utils/formatFormDate";
 
 type Props = {
   errors: Partial<FieldErrorsImpl<any>>;
@@ -36,6 +37,8 @@ export const FieldMappingInput = forwardRef(
     onDropdownChange,
     ...attributes
   }: Props) => {
+    const { theme } = useDeskproAppTheme();
+
     return (
       <Stack vertical style={{ width: "100%" }}>
         {fields.map((field) => {
@@ -81,22 +84,31 @@ export const FieldMappingInput = forwardRef(
               );
             }
             case "date":
+              // eslint-disable-next-line no-case-declarations
+              const formattedDate = formatFormDate(watch(field.name));
               return (
-                <DateInput
-                  id={field.name}
-                  style={
-                    !!errors?.[field.name] && {
-                      borderBottomColor: "red",
+                <Stack
+                  vertical
+                  style={{ marginTop: "5px", color: theme.colors.grey80, width: "100%" }}>
+                  <H1>{field.label}</H1>
+                  <DateInput
+                    id={field.name}
+                    style={
+                      !!errors?.[field.name] && {
+                        borderBottomColor: "red",
+                      }
                     }
-                  }
-                  value={watch(field.name)}
-                  label={field.label}
-                  error={!!errors[field.name]}
-                  onChange={(e: [Date]) =>
-                    setValue(field.name, e[0].toISOString().split("T")[0])
-                  }
-                />
-              );
+                    value={formattedDate}
+                    error={!!errors[field.name]}
+                    onChange={(e: [Date]) => {
+                      const newDate = e[0].toISOString().split("T")[0]
+                      setValue(field.name, newDate)
+
+                    }
+                    }
+                  />
+                </Stack>
+              )
           }
           return <div />;
         })}

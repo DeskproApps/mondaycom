@@ -1,4 +1,3 @@
-import { useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
 import { Button, Checkbox, Stack } from "@deskpro/deskpro-ui";
 import { DropdownSelect } from "../DropdownSelect/DropdownSelect";
 import { FieldMapping } from "../FieldMapping/FieldMapping";
@@ -6,6 +5,7 @@ import { HorizontalDivider } from "../HorizontalDivider/HorizontalDivider";
 import { IItem } from "../../api/types";
 import { LoadingSpinnerCenter } from "../LoadingSpinnerCenter/LoadingSpinnerCenter";
 import { Title } from "../../styles";
+import { useInitialisedDeskproAppClient, useQueryWithClient } from "@deskpro/app-sdk";
 import { useLinkItems, useTicketCount } from "../../hooks/hooks";
 import { useState } from "react";
 import getBoardsByWorkspaceId from "@/api/monday/getBoardsByWorkspaceId";
@@ -156,6 +156,7 @@ export const LinkItem = () => {
                         fields={[
                           {
                             ...item,
+                            board_id: item.board.id,
                             board: item.board.name,
                             linked_tickets: itemLinketCount[item.id] || 0,
                           },
