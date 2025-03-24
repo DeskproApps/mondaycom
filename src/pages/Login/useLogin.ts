@@ -25,7 +25,7 @@ export default function useLogin(): UseLogin {
     const { context } = useDeskproLatestAppContext<TicketData, Settings>()
 
     const ticketId = context?.data?.ticket.id
-    const isUsingOAuth = context?.settings.use_access_token !== true || context.settings.use_advanced_connect === false
+    const isUsingOAuth = context?.settings.use_access_token === false || context?.settings.use_advanced_connect === false
 
     useInitialisedDeskproAppClient(async (client) => {
         if (!ticketId) {

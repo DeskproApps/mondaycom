@@ -20,7 +20,7 @@ export const Main = () => {
   const { getMultipleItemsTicketCount } = useTicketCount();
   const { logoutActiveUser } = useLogout()
 
-  const isUsingOAuth = context?.settings.use_access_token !== true || context.settings.use_advanced_connect === false
+  const isUsingOAuth = context?.settings.use_access_token === false || context?.settings.use_advanced_connect === false
 
 
   useDeskproElements(({ clearElements, registerElement }) => {
