@@ -1,7 +1,7 @@
-import { AnchorButton, H3, Stack } from "@deskpro/deskpro-ui"
+import { AnchorButton, H3, P5, Stack } from "@deskpro/deskpro-ui"
 import { FC } from "react"
 import { Settings } from "@/types/deskpro"
-import { useDeskproElements, useDeskproLatestAppContext } from "@deskpro/app-sdk"
+import { useDeskproAppTheme, useDeskproElements, useDeskproLatestAppContext } from "@deskpro/app-sdk"
 import StyledErrorBlock from "@/components/StyledErrorBlock"
 import useLogin from "./useLogin"
 
@@ -13,6 +13,8 @@ const LoginPage: FC = () => {
 
     const { onSignIn, authUrl, isLoading, error } = useLogin();
     const { context } = useDeskproLatestAppContext<unknown, Settings>()
+        const { theme } = useDeskproAppTheme();
+    
 
     const mode = context?.settings.use_advanced_connect === false ? 'global' : 'local';
     
@@ -39,6 +41,10 @@ const LoginPage: FC = () => {
                     text={"Install App"}
                 />
             </Stack>
+            
+            <P5 style={{ color: theme.colors.grey100, width: "100%" }}>
+            Please ensure that the app is installed on your account before logging in. If you haven’t installed the app yet, click the 'Install App' button to add it to your account.
+            </P5>
 
             {error && <StyledErrorBlock>{error}</StyledErrorBlock>}
         </Stack>
