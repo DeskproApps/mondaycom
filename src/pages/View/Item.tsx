@@ -81,6 +81,7 @@ export const ViewItem = () => {
         fields={[
           {
             ...item,
+            board_id: item?.board.id,
             board: item?.board.name ?? "No board",
             linked_tickets: itemLinketCount || 0,
           },
