@@ -337,6 +337,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
       style={{ width: "100%" }}
     >
       <Stack vertical style={{ width: "100%" }} gap={6} padding={12}>
+        {/* Show the Name field on all pages*/}
         <InputWithTitleRegister
           register={register("name")}
           required
@@ -345,6 +346,8 @@ export const MutateItem = ({ id }: { id?: string }) => {
           data-testid="input-name"
           type="text"
         />
+
+        {/* Show the Workspace dropdown only on the Create Item page */}
         {!isEditMode && (
           <DropdownSelect
             title="Workspace"
@@ -359,6 +362,9 @@ export const MutateItem = ({ id }: { id?: string }) => {
             value={watch("workspace")}
           />
         )}
+
+
+        {/* Show the Board dropdown only on the Create Item page */}
         {!isEditMode ? (
           boardsQuery.isFetching ? (
             <LoadingSpinnerCenter />
@@ -381,6 +387,7 @@ export const MutateItem = ({ id }: { id?: string }) => {
         ) : (
           false
         )}
+        
         {columnsQuery.isFetching ? (
           <LoadingSpinnerCenter />
         ) : (
