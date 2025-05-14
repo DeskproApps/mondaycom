@@ -12,7 +12,7 @@
   <p>Monday.com is a project and work management platform geared towards planning and managing projects and tracking day-to-day tasks.</p>
   <a href='https://support.deskpro.com/ga/guides/developers/anatomy-of-an-app' target='_blank'>Deskpro Apps Documentation</a>
   <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-  <a href='https://developer.mondaycom.com' target='_blank'>Monday.com API Documentation</a>
+  <a href='https://developer.monday.com' target='_blank'>Monday.com API Documentation</a>
   <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
   <a href='./SETUP.md' target='_blank'>Monday.com App Setup Guide</a>
   <br />
