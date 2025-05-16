@@ -20,7 +20,7 @@
   <br />
 </div>
 
-![screenshot of the Monday.com App](./docs/readme/app-screenshot.png)
+![screenshot of the Monday.com app](./docs/readme/app-screenshot.png)
 
 ## **About the App**
 The Monday.com app enhances your Deskpro experience by integrating Monday.com's versatile project management and team collaboration tools directly into your helpdesk. With this app, agents can efficiently track tasks, manage workflows, and collaborate with team members to ensure seamless project execution and exceptional customer support.
@@ -47,7 +47,7 @@ To make development easier and avoid version conflicts, we recommend using **Dev
    pnpm start
    ```
 
-You should now be able to view the app in your browser. For more information about developing [Deskpro apps](https://www.deskpro.com/apps), [Visit the docs](https://support.deskpro.com/ga/guides/developers/anatomy-of-an-app).
+You should now be able to view the app in your browser. For more information about developing [Deskpro Apps](https://www.deskpro.com/apps), [visit the docs](https://support.deskpro.com/ga/guides/developers/anatomy-of-an-app).
 
 ### Natively
 _We recommend using the DevContainer mentioned above for Consistency, Speed and Isolation._
@@ -71,7 +71,7 @@ pnpm install
 pnpm start
 ```
 
-You should now be able to view the app in your browser. For more information about developing [Deskpro Apps](https://www.deskpro.com/apps), [Visit the Docs](https://support.deskpro.com/ga/guides/developers/anatomy-of-an-app).
+You should now be able to view the app in your browser. For more information about developing [Deskpro Apps](https://www.deskpro.com/apps), [visit the Docs](https://support.deskpro.com/ga/guides/developers/anatomy-of-an-app).
 
 ### Testing
 We've included `jest` to run tests. It will look anywhere in `/src` for test suite files ending in `.test.tsx` or `.test.ts`.
