@@ -7,7 +7,6 @@ import "tippy.js/dist/tippy.css";
 import { AdminCallbackPage } from "./pages/Admin/Callback";
 import { CreateNote } from "./pages/Create/Note";
 import { EditItem } from "./pages/Edit/Item";
-import { ErrorBoundary } from "react-error-boundary";
 import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
 import { FindOrCreate } from "./pages/FindOrCreate/FindOrCreate";
 import { HashRouter, Route, Routes } from "react-router-dom";
@@ -19,6 +18,7 @@ import { ViewItem } from "./pages/View/Item";
 import { QueryClientProvider, QueryErrorResetBoundary } from "@tanstack/react-query";
 import LoginPage from "./pages/Login";
 import LoadingPage from "./pages/Loading";
+import { ErrorBoundary } from "@sentry/react";
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
         <Suspense fallback={<LoadingSpinner />}>
           <QueryErrorResetBoundary>
             {({ reset }) => (
-              <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
+              <ErrorBoundary onReset={reset} fallback={ErrorFallback}>
                 <Routes>
                   <Route path="/">
                     <Route index element={<LoadingPage />} />
