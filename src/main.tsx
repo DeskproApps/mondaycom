@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/react';
+import './instrument';
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
