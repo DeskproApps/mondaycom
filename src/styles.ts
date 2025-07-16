@@ -1,13 +1,14 @@
+import { DeskproAppTheme } from "@deskpro/app-sdk";
 import { H1 } from "@deskpro/deskpro-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)<DeskproAppTheme>`
   all: unset;
   font-size: 12px;
   color: ${({ theme, to }) =>
-    to ? theme.colors.cyan100 : theme.colors.black100};
+    to ? theme.colors.cyan100 : theme.colors.grey100};
   text-decoration: none;
   font-weight: 500;
   cursor: ${({ to }) => (to ? "pointer" : "default")};
