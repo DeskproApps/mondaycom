@@ -83,12 +83,25 @@
       {
         "url": "https://api.monday.com/v2",
         "methods": ["POST"],
-        "timeout": 20
+        "timeout": 20,
+        "settingsInjection": {
+          "access_token": {
+            "header": ["Authorization"]
+          }
+        }
       },
       {
         "url": "https://auth.monday.com/oauth2/token",
         "methods": ["POST"],
-        "timeout": 20
+        "timeout": 20,
+        "settingsInjection": {
+          "client_id": {
+            "body": ["client_id"]
+          },
+          "client_secret": {
+            "body": ["client_secret"]
+          }
+        }
       }
     ]
   }
